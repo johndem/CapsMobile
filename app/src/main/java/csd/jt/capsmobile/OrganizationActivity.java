@@ -1,134 +1,65 @@
 package csd.jt.capsmobile;
 
-import android.app.ListActivity;
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 
-public class OrganizationActivity extends ListActivity {
+public class OrganizationActivity extends FragmentActivity implements
+        ActionBar.TabListener {
 
-    private ProgressDialog pDialog;
-
-    // URL to get contacts JSON
-    private static String url = "http://10.0.2.2/android/find.php";
-
-    // JSON Node names
-    private static final String TAG_AGEGROUPS = "agegroups";
-    private static final String TAG_ID = "id";
-    private static final String TAG_TITLE = "title";
-
-    // contacts JSONArray
-    JSONArray agegroups = null;
-
-    // Hashmap for ListView
-    ArrayList<HashMap<String, String>> dataList;
+    private ViewPager viewPager;
+    private TabsOrgPagerAdapter mAdapter;
+    private ActionBar actionBar;
+    // Tab titles
+    private String[] tabs = { "Active Events", "Completed Events" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_organization);
 
-        dataList = new ArrayList<HashMap<String, String>>();
 
-        ListView lv = getListView();
+        // Initilization
+        viewPager = (ViewPager) findViewById(R.id.pagerOrg);
+        actionBar = getActionBar();
+        mAdapter = new TabsOrgPagerAdapter(getSupportFragmentManager());
 
-        // Calling async task to get json
-        new GetData().execute();
-    }
+        viewPager.setAdapter(mAdapter);
+        actionBar.setHomeButtonEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-    /**
-     * Async task class to get json by making HTTP call
-     * */
-    private class GetData extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // Showing progress dialog
-            pDialog = new ProgressDialog(OrganizationActivity.this);
-            pDialog.setMessage("Please wait...");
-            pDialog.setCancelable(false);
-            pDialog.show();
-
+        // Adding Tabs
+        for (String tab_name : tabs) {
+            actionBar.addTab(actionBar.newTab().setText(tab_name)
+                    .setTabListener(this));
         }
 
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            // Creating service handler class instance
-            ServiceHandler sh = new ServiceHandler();
 
-            // Building Parameters
-            HashMap<String, String> params = new HashMap<>();
-            params.put("id", "3");
+        /**
+         * on swiping the viewpager make respective tab selected
+         * */
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
-            // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(url, params);
-
-            Log.d("Response: ", "> " + jsonStr);
-
-            if (jsonStr != null) {
-                try {
-                    JSONObject jsonObj = new JSONObject(jsonStr);
-
-                    // Getting JSON Array node
-                    agegroups = jsonObj.getJSONArray(TAG_AGEGROUPS);
-
-                    // looping through All Contacts
-                    for (int i = 0; i < agegroups.length(); i++) {
-                        JSONObject c = agegroups.getJSONObject(i);
-
-                        String id = c.getString(TAG_ID);
-                        String title = c.getString(TAG_TITLE);
-
-
-                        // tmp hashmap for single contact
-                        HashMap<String, String> row = new HashMap<String, String>();
-
-                        // adding each child node to HashMap key => value
-                        row.put(TAG_ID, id);
-                        row.put(TAG_TITLE, title);
-
-                        // adding contact to contact list
-                        dataList.add(row);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                Log.e("ServiceHandler", "Couldn't get any data from the url");
+            @Override
+            public void onPageSelected(int position) {
+                // on changing the page
+                // make respected tab selected
+                actionBar.setSelectedNavigationItem(position);
             }
 
-            return null;
-        }
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            }
 
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            // Dismiss the progress dialog
-            if (pDialog.isShowing())
-                pDialog.dismiss();
-            /**
-             * Updating parsed JSON data into ListView
-             * */
-            ListAdapter adapter = new SimpleAdapter(
-                    OrganizationActivity.this, dataList,
-                    R.layout.list_item, new String[] { TAG_TITLE }, new int[] { R.id.title});
-
-            setListAdapter(adapter);
-        }
-
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+            }
+        });
     }
 
     @Override
@@ -151,5 +82,20 @@ public class OrganizationActivity extends ListActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+    }
+
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+        // on tab selected
+        // show respected fragment view
+        viewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
     }
 }
