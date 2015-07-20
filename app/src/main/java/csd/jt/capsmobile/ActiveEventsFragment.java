@@ -51,7 +51,6 @@ public class ActiveEventsFragment extends ListFragment {
     ArrayList<HashMap<String, String>> dataList;
 
     @Override
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
