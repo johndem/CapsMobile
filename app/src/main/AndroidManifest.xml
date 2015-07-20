@@ -18,10 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".OrganizationActivity"
             android:label="@string/title_activity_organization" >
+        </activity>
+        <activity
+            android:name=".VolunteerActivity"
+            android:label="@string/title_activity_volunteer" >
         </activity>
 
     </application>

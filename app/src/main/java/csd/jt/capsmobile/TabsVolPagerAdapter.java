@@ -5,11 +5,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 /**
- * Created by John on 19/7/2015.
+ * Created by John on 20/7/2015.
  */
-public class TabsOrgPagerAdapter extends FragmentPagerAdapter {
+public class TabsVolPagerAdapter extends FragmentPagerAdapter {
 
-    public TabsOrgPagerAdapter(FragmentManager fm) {
+    public TabsVolPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -19,10 +19,10 @@ public class TabsOrgPagerAdapter extends FragmentPagerAdapter {
         switch (index) {
             case 0:
                 // Top Rated fragment activity
-                return new OrgActiveEventsFragment();
+                return new VolActiveEventsFragment();
             case 1:
                 // Games fragment activity
-                return new OrgCompletedEventsFragment();
+                return new VolCompletedEventsFragment();
         }
 
         return null;

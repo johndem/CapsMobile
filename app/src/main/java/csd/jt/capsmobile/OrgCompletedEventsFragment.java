@@ -18,15 +18,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class ActiveEventsFragment extends ListFragment {
+public class OrgCompletedEventsFragment extends ListFragment {
 
     private ProgressDialog pDialog;
 
     // URL to get contacts JSON
-    private static String url = "http://10.0.2.2/android/find-org-active.php";
+    private static String url = "http://10.0.2.2/android/find-org-completed.php";
 
     // JSON Node names
-    private static final String TAG_ACTIVE = "active";
+    private static final String TAG_COMPLETED = "completed";
     private static final String TAG_TITLE = "title";
     private static final String TAG_CATEGORY = "category";
     private static final String TAG_ADDRESS = "address";
@@ -45,7 +45,7 @@ public class ActiveEventsFragment extends ListFragment {
 
 
     // contacts JSONArray
-    JSONArray active = null;
+    JSONArray completed = null;
 
     // Hashmap for ListView
     ArrayList<HashMap<String, String>> dataList;
@@ -54,16 +54,15 @@ public class ActiveEventsFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_active_events, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_org_completed_events, container, false);
 
         dataList = new ArrayList<HashMap<String, String>>();
 
-       // Calling async task to get json
+        // Calling async task to get json
         new GetData().execute();
 
         return rootView;
     }
-
 
     /**
      * Async task class to get json by making HTTP call
@@ -100,11 +99,11 @@ public class ActiveEventsFragment extends ListFragment {
                     JSONObject jsonObj = new JSONObject(jsonStr);
 
                     // Getting JSON Array node
-                    active = jsonObj.getJSONArray(TAG_ACTIVE);
+                    completed = jsonObj.getJSONArray(TAG_COMPLETED);
 
                     // looping through All Contacts
-                    for (int i = 0; i < active.length(); i++) {
-                        JSONObject c = active.getJSONObject(i);
+                    for (int i = 0; i < completed.length(); i++) {
+                        JSONObject c = completed.getJSONObject(i);
 
                         String title = c.getString(TAG_TITLE);
                         String category = c.getString(TAG_CATEGORY);

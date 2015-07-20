@@ -18,16 +18,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class CompletedEventsFragment extends ListFragment {
+public class VolActiveEventsFragment extends ListFragment {
 
     private ProgressDialog pDialog;
 
     // URL to get contacts JSON
-    private static String url = "http://10.0.2.2/android/find-org-completed.php";
+    private static String url = "http://10.0.2.2/android/find-vol-active.php";
 
     // JSON Node names
-    private static final String TAG_COMPLETED = "completed";
+    private static final String TAG_ACTIVE = "active";
     private static final String TAG_TITLE = "title";
+    private static final String TAG_CREATOR = "creator";
     private static final String TAG_CATEGORY = "category";
     private static final String TAG_ADDRESS = "address";
     private static final String TAG_STREET = "street";
@@ -45,7 +46,7 @@ public class CompletedEventsFragment extends ListFragment {
 
 
     // contacts JSONArray
-    JSONArray completed = null;
+    JSONArray active = null;
 
     // Hashmap for ListView
     ArrayList<HashMap<String, String>> dataList;
@@ -54,7 +55,7 @@ public class CompletedEventsFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_completed_events, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_vol_active_events, container, false);
 
         dataList = new ArrayList<HashMap<String, String>>();
 
@@ -99,13 +100,14 @@ public class CompletedEventsFragment extends ListFragment {
                     JSONObject jsonObj = new JSONObject(jsonStr);
 
                     // Getting JSON Array node
-                    completed = jsonObj.getJSONArray(TAG_COMPLETED);
+                    active = jsonObj.getJSONArray(TAG_ACTIVE);
 
                     // looping through All Contacts
-                    for (int i = 0; i < completed.length(); i++) {
-                        JSONObject c = completed.getJSONObject(i);
+                    for (int i = 0; i < active.length(); i++) {
+                        JSONObject c = active.getJSONObject(i);
 
                         String title = c.getString(TAG_TITLE);
+                        String creator = c.getString(TAG_CREATOR);
                         String category = c.getString(TAG_CATEGORY);
                         String address = c.getString(TAG_ADDRESS);
                         String street = c.getString(TAG_STREET);
@@ -128,6 +130,7 @@ public class CompletedEventsFragment extends ListFragment {
 
                         // adding each child node to HashMap key => value
                         row.put(TAG_TITLE, title);
+                        row.put(TAG_CREATOR, creator);
                         row.put(TAG_CATEGORY, category);
                         row.put(TAG_ADDRESS, address);
                         row.put(TAG_STREET, street);
@@ -174,13 +177,6 @@ public class CompletedEventsFragment extends ListFragment {
         }
 
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_organization, menu);
-//        return true;
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

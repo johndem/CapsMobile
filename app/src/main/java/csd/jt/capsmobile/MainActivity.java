@@ -38,6 +38,10 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Toast.makeText(MainActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
+                if (position == 1) {
+                    Intent intent = new Intent(MainActivity.this, VolunteerActivity.class);
+                    startActivity(intent);
+                }
                 if (position == 2) {
                     Intent intent = new Intent(MainActivity.this, OrganizationActivity.class);
                     startActivity(intent);

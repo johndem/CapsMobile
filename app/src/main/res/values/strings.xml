@@ -5,4 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_organization">OrganizationActivity</string>
     <string name="title_activity_completed_events_fragment">CompletedEventsFragment</string>
+    <string name="title_activity_volunteer">VolunteerActivity</string>
+    <string name="title_activity_vol_active_events_fragment">VolActiveEventsFragment</string>
+    <string name="title_activity_vol_completed_events_fragment">VolCompletedEventsFragment</string>
 </resources>
