@@ -8,4 +8,9 @@
     <string name="title_activity_volunteer">VolunteerActivity</string>
     <string name="title_activity_vol_active_events_fragment">VolActiveEventsFragment</string>
     <string name="title_activity_vol_completed_events_fragment">VolCompletedEventsFragment</string>
+    <string name="title_activity_event">EventActivity</string>
+    <string name="title_activity_event_general">EventGeneral</string>
+    <string name="title_activity_event_details_fragment">EventDetailsFragment</string>
+    <string name="title_activity_event_map_fragment">EventMapFragment</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
