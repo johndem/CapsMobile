@@ -23,9 +23,6 @@ public class TabsEventPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 // Games fragment activity
                 return new EventDetailsFragment();
-            case 2:
-                // Games fragment activity
-                return new EventMapFragment();
         }
 
         return null;
@@ -34,7 +31,7 @@ public class TabsEventPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // get item count - equal to number of tabs
-        return 3;
+        return 2;
     }
 
 }

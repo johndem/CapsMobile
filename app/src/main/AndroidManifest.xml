@@ -38,18 +38,6 @@
             android:name=".EventActivity"
             android:label="@string/title_activity_event" >
         </activity>
-        <activity
-            android:name=".EventGeneral"
-            android:label="@string/title_activity_event_general" >
-        </activity>
-        <activity
-            android:name=".EventDetailsFragment"
-            android:label="@string/title_activity_event_details_fragment" >
-        </activity>
-        <activity
-            android:name=".EventMapFragment"
-            android:label="@string/title_activity_event_map_fragment" >
-        </activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
