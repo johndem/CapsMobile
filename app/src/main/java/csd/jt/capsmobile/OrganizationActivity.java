@@ -16,7 +16,7 @@ public class OrganizationActivity extends FragmentActivity implements
     private TabsOrgPagerAdapter mAdapter;
     private ActionBar actionBar;
     // Tab titles
-    private String[] tabs = { "Active Events", "Completed Events" };
+    private String[] tabs = {"Active Events", "Completed Events"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

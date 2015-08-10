@@ -11,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -66,7 +68,7 @@ public class OrgCompletedEventsFragment extends ListFragment {
 
     /**
      * Async task class to get json by making HTTP call
-     * */
+     */
     private class GetData extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -122,7 +124,6 @@ public class OrgCompletedEventsFragment extends ListFragment {
                         String image3 = c.getString(TAG_IMAGE3);
 
 
-
                         // tmp hashmap for single contact
                         HashMap<String, String> row = new HashMap<String, String>();
 
@@ -168,7 +169,7 @@ public class OrgCompletedEventsFragment extends ListFragment {
              * */
             ListAdapter adapter = new SimpleAdapter(
                     getActivity(), dataList,
-                    R.layout.list_item, new String[] { TAG_TITLE, TAG_CATEGORY, TAG_SDESC }, new int[] { R.id.title, R.id.category, R.id.sdesc});
+                    R.layout.list_item, new String[]{TAG_TITLE, TAG_CATEGORY, TAG_SDESC}, new int[]{R.id.title, R.id.category, R.id.sdesc});
 
             setListAdapter(adapter);
         }

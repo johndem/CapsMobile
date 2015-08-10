@@ -11,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,7 +25,7 @@ public class VolCompletedEventsFragment extends ListFragment {
     private ProgressDialog pDialog;
 
     // URL to get contacts JSON
-    private static String url = "http://10.0.2.2/android/find-vol-completed.php";
+    private static String url = "http://10.0.3.2/CAPS/android/find-vol-completed.php";
 
     // JSON Node names
     private static final String TAG_COMPLETED = "completed";
@@ -67,7 +69,7 @@ public class VolCompletedEventsFragment extends ListFragment {
 
     /**
      * Async task class to get json by making HTTP call
-     * */
+     */
     private class GetData extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -124,7 +126,6 @@ public class VolCompletedEventsFragment extends ListFragment {
                         String image3 = c.getString(TAG_IMAGE3);
 
 
-
                         // tmp hashmap for single contact
                         HashMap<String, String> row = new HashMap<String, String>();
 
@@ -171,7 +172,7 @@ public class VolCompletedEventsFragment extends ListFragment {
              * */
             ListAdapter adapter = new SimpleAdapter(
                     getActivity(), dataList,
-                    R.layout.list_item, new String[] { TAG_TITLE, TAG_CATEGORY, TAG_SDESC }, new int[] { R.id.title, R.id.category, R.id.sdesc});
+                    R.layout.list_item, new String[]{TAG_TITLE, TAG_CATEGORY, TAG_SDESC}, new int[]{R.id.title, R.id.category, R.id.sdesc});
 
             setListAdapter(adapter);
         }

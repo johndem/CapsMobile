@@ -3,6 +3,7 @@ package csd.jt.capsmobile;
 /**
  * Created by John on 18/7/2015.
  */
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,17 +24,19 @@ public class ServiceHandler {
 
     /**
      * Making service call
+     *
      * @url - url to make request
-     * */
+     */
     public String makeServiceCall(String url) {
         return this.makeServiceCall(url, null);
     }
 
     /**
      * Making service call
+     *
      * @url - url to make request
      * @params - http request params
-     * */
+     */
     public String makeServiceCall(String url,
                                   HashMap<String, String> params) {
         try {
@@ -41,11 +44,10 @@ public class ServiceHandler {
 
             String data = null;
             if (params.size() > 0) {
-                for (String key: params.keySet()) {
+                for (String key : params.keySet()) {
                     data = URLEncoder.encode(key, "UTF-8") + "=" + URLEncoder.encode(params.get(key), "UTF-8");
                 }
             }
-
 
 
             URL link = new URL(url);

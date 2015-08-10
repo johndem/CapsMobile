@@ -16,7 +16,7 @@ public class EventActivity extends FragmentActivity implements
     private TabsEventPagerAdapter mAdapter;
     private ActionBar actionBar;
     // Tab titles
-    private String[] tabs = { "General", "Details" };
+    private String[] tabs = {"General", "Details"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

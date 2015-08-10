@@ -1,5 +1,7 @@
 package csd.jt.capsmobile;
 
+import android.app.Activity;
+import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,18 +20,22 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
-public class OrgActiveEventsFragment extends ListFragment {
+public class SearchResultsActivity extends ListActivity {
 
-    private ProgressDialog pDialog;
+   // private ProgressDialog pDialog;
+    public ListActivity act = this;
+    public String cat = "";
 
     // URL to get contacts JSON
-    private static String url = "http://10.0.2.2/android/find-org-active.php";
+    private static String url = "http://10.0.3.2/CAPS/android/find-category.php";
 
     // JSON Node names
     private static final String TAG_ACTIVE = "active";
     private static final String TAG_TITLE = "title";
+    private static final String TAG_CREATOR = "creator";
     private static final String TAG_CATEGORY = "category";
     private static final String TAG_ADDRESS = "address";
     private static final String TAG_STREET = "street";
@@ -52,31 +58,36 @@ public class OrgActiveEventsFragment extends ListFragment {
     // Hashmap for ListView
     ArrayList<HashMap<String, String>> dataList;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.search_results);
+        Log.d("tag1","Oncreate");
 
-        View rootView = inflater.inflate(R.layout.fragment_org_active_events, container, false);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            cat = extras.getString("category");
+        }
 
         dataList = new ArrayList<HashMap<String, String>>();
 
         // Calling async task to get json
         new GetData().execute();
 
-        return rootView;
     }
-
 
     /**
      * Async task class to get json by making HTTP call
      */
     private class GetData extends AsyncTask<Void, Void, Void> {
+        private ProgressDialog pDialog;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // Showing progress dialog
-            pDialog = new ProgressDialog(getActivity());
+            Log.d("tag1", "preEx");
+
+             //Showing progress dialog
+            pDialog = new ProgressDialog(act);
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
             pDialog.show();
@@ -87,10 +98,11 @@ public class OrgActiveEventsFragment extends ListFragment {
         protected Void doInBackground(Void... arg0) {
             // Creating service handler class instance
             ServiceHandler sh = new ServiceHandler();
+            Log.d("tag1","Service");
 
             // Building Parameters
             HashMap<String, String> params = new HashMap<>();
-            params.put("id", "1");
+            params.put("category", cat);
 
             // Making a request to url and getting response
             String jsonStr = sh.makeServiceCall(url, params);
@@ -109,6 +121,7 @@ public class OrgActiveEventsFragment extends ListFragment {
                         JSONObject c = active.getJSONObject(i);
 
                         String title = c.getString(TAG_TITLE);
+                       // String creator = c.getString(TAG_CREATOR);
                         String category = c.getString(TAG_CATEGORY);
                         String address = c.getString(TAG_ADDRESS);
                         String street = c.getString(TAG_STREET);
@@ -130,6 +143,8 @@ public class OrgActiveEventsFragment extends ListFragment {
 
                         // adding each child node to HashMap key => value
                         row.put(TAG_TITLE, title);
+                        Log.d("title", title);
+                        //row.put(TAG_CREATOR, creator);
                         row.put(TAG_CATEGORY, category);
                         row.put(TAG_ADDRESS, address);
                         row.put(TAG_STREET, street);
@@ -169,20 +184,13 @@ public class OrgActiveEventsFragment extends ListFragment {
              * Updating parsed JSON data into ListView
              * */
             ListAdapter adapter = new SimpleAdapter(
-                    getActivity(), dataList,
+                    act, dataList,
                     R.layout.list_item, new String[]{TAG_TITLE, TAG_CATEGORY, TAG_SDESC}, new int[]{R.id.title, R.id.category, R.id.sdesc});
 
             setListAdapter(adapter);
         }
 
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_organization, menu);
-//        return true;
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
