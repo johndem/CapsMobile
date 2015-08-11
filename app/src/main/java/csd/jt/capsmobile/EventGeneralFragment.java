@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 public class EventGeneralFragment extends Fragment {
@@ -14,6 +15,27 @@ public class EventGeneralFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_event_general, container, false);
+
+
+        Bundle extras = getActivity().getIntent().getExtras();
+        String title = null, category = null, area = null, date = null, desc = null;
+        if (extras != null) {
+            title = extras.getString("title");
+            category = extras.getString("category");
+            area = extras.getString("area");
+            date = extras.getString("day");
+            desc = extras.getString("sdesc");
+        }
+        TextView titleTv = (TextView) rootView.findViewById(R.id.eventTitleTv);
+        titleTv.setText(title);
+        TextView catTv = (TextView) rootView.findViewById(R.id.eventCatTv);
+        catTv.setText("Category: " + category);
+        TextView areaTv = (TextView) rootView.findViewById(R.id.eventAreaTv);
+        areaTv.setText("Area: " + area);
+        TextView dateTv = (TextView) rootView.findViewById(R.id.eventDateTv);
+        dateTv.setText("Date: " + date);
+        TextView descTv = (TextView) rootView.findViewById(R.id.eventSdescTv);
+        descTv.setText(desc);
 
         return rootView;
     }

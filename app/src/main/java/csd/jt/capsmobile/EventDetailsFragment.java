@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 public class EventDetailsFragment extends Fragment {
@@ -18,6 +19,30 @@ public class EventDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_event_details, container, false);
+
+        Bundle extras = getActivity().getIntent().getExtras();
+        String address = null, area = null, str = null, zip = null, date = null, time = null, agegroup = null, skills = null, body = null;
+        if (extras != null) {
+            address = extras.getString("address");
+            area = extras.getString("area");
+            str = extras.getString("street");
+            zip = extras.getString("zipcode");
+            date = extras.getString("day");
+            time = extras.getString("time");
+            agegroup = extras.getString("agegroup");
+            skills = extras.getString("skills");
+            body = extras.getString("ddesc");
+        }
+        TextView addressTv = (TextView) rootView.findViewById(R.id.eventAddressTv);
+        addressTv.setText("Address: " + address + " " + str + ", " + area + ", " + zip);
+        TextView timeTv = (TextView) rootView.findViewById(R.id.eventTimeTv);
+        timeTv.setText("When: " + date + ", " + time);
+        TextView ageTv = (TextView) rootView.findViewById(R.id.eventAgeTv);
+        ageTv.setText("Agegroup: " + agegroup);
+        TextView skillsTv = (TextView) rootView.findViewById(R.id.eventSkillsTv);
+        skillsTv.setText("Skills: " + skills);
+        TextView bodyTv = (TextView) rootView.findViewById(R.id.eventBodyTv);
+        bodyTv.setText(body);
 
         mapBtn = (Button) rootView.findViewById(R.id.mapBtn);
         mapBtn.setOnClickListener(new View.OnClickListener() {
