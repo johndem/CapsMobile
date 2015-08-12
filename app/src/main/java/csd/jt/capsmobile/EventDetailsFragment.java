@@ -44,11 +44,17 @@ public class EventDetailsFragment extends Fragment {
         TextView bodyTv = (TextView) rootView.findViewById(R.id.eventBodyTv);
         bodyTv.setText(body);
 
+        final String mapAddress = address, mapStreet = str, mapZipcode = zip, mapArea = area;
+
         mapBtn = (Button) rootView.findViewById(R.id.mapBtn);
         mapBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
                 Intent intent = new Intent(getActivity(), MapsActivity.class);
+                intent.putExtra("address", mapAddress);
+                intent.putExtra("street", mapStreet);
+                intent.putExtra("zipcode", mapZipcode);
+                intent.putExtra("area", mapArea);
                 startActivity(intent);
             }
         });

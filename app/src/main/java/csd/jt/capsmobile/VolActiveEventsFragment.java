@@ -1,6 +1,7 @@
 package csd.jt.capsmobile;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -9,8 +10,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,10 +26,11 @@ import java.util.HashMap;
 
 public class VolActiveEventsFragment extends ListFragment {
 
+    private ListView lv;
     private ProgressDialog pDialog;
 
     // URL to get contacts JSON
-    private static String url = "http://10.0.3.2/CAPS/android/find-vol-active.php";
+    private static String url = "http://10.0.2.2/android/find-vol-active.php";
 
     // JSON Node names
     private static final String TAG_ACTIVE = "active";
@@ -65,6 +70,32 @@ public class VolActiveEventsFragment extends ListFragment {
         new GetData().execute();
 
         return rootView;
+    }
+
+    private Bundle getParams(String title) {
+        Bundle bundle = new Bundle();
+
+        for (HashMap<String, String> listItem : dataList) {
+            if (listItem.get(TAG_TITLE).equals(title)) {
+                bundle.putString(TAG_TITLE, title);
+                bundle.putString(TAG_CATEGORY, listItem.get(TAG_CATEGORY));
+                bundle.putString(TAG_ADDRESS, listItem.get(TAG_ADDRESS));
+                bundle.putString(TAG_STREET, listItem.get(TAG_STREET));
+                bundle.putString(TAG_ZIPCODE, listItem.get(TAG_ZIPCODE));
+                bundle.putString(TAG_AREA, listItem.get(TAG_AREA));
+                bundle.putString(TAG_DAY, listItem.get(TAG_DAY));
+                bundle.putString(TAG_TIME, listItem.get(TAG_TIME));
+                bundle.putString(TAG_AGEGROUP, listItem.get(TAG_AGEGROUP));
+                bundle.putString(TAG_SKILLS, listItem.get(TAG_SKILLS));
+                bundle.putString(TAG_SDESC, listItem.get(TAG_SDESC));
+                bundle.putString(TAG_DDESC, listItem.get(TAG_DDESC));
+                bundle.putString(TAG_IMAGE1, listItem.get(TAG_IMAGE1));
+                bundle.putString(TAG_IMAGE2, listItem.get(TAG_IMAGE2));
+                bundle.putString(TAG_IMAGE3, listItem.get(TAG_IMAGE3));
+            }
+        }
+
+        return  bundle;
     }
 
     /**
@@ -175,6 +206,24 @@ public class VolActiveEventsFragment extends ListFragment {
                     R.layout.list_item, new String[]{TAG_TITLE, TAG_CATEGORY, TAG_SDESC}, new int[]{R.id.title, R.id.category, R.id.sdesc});
 
             setListAdapter(adapter);
+
+            lv = getListView();
+
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(getActivity(), EventActivity.class);
+
+                    TextView tv = (TextView) view.findViewById(R.id.title);
+                    String title = tv.getText().toString();
+
+                    Bundle params = getParams(title);
+                    intent.putExtras(params);
+
+                    startActivity(intent);
+                }
+            });
+
         }
 
     }

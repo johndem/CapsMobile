@@ -30,7 +30,6 @@ public class MainActivity extends Activity {
         addDrawerItems();
 
         //Set Categories Listeners
-
         ImageButton cat1 = (ImageButton) findViewById(R.id.cat1);
         ImageButton cat2 = (ImageButton) findViewById(R.id.cat2);
         ImageButton cat3 = (ImageButton) findViewById(R.id.cat3);
@@ -50,42 +49,48 @@ public class MainActivity extends Activity {
         cat2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               System.out.println("Cat");
-
-            }
-        });
-
-        cat2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("test", "cat");
-
+                Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
+                intent.putExtra("category", "Animals");
+                startActivity(intent);
             }
         });
 
         cat3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("test", "cat");
-
+                Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
+                intent.putExtra("category", "Communities");
+                startActivity(intent);
             }
         });
 
         cat4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("test", "cat");
-
+                Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
+                intent.putExtra("category", "Education");
+                startActivity(intent);
             }
         });
 
         cat5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("test", "cat");
-
+                Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
+                intent.putExtra("category", "Environment");
+                startActivity(intent);
             }
         });
+
+        cat1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
+                intent.putExtra("category", "Emergency");
+                startActivity(intent);
+            }
+        });
+
 
     }
 

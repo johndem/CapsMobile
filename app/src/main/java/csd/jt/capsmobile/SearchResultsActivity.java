@@ -85,13 +85,9 @@ public class SearchResultsActivity extends ListActivity {
 
                 TextView tv = (TextView) view.findViewById(R.id.title);
                 String title = tv.getText().toString();
-                //intent.putExtra("title", title);
 
                 Bundle params = getParams(title);
                 intent.putExtras(params);
-//                TextView tv2 = (TextView) view.findViewById(R.id.category);
-//                String cat = tv2.getText().toString();
-//                intent.putExtra("category", cat);
 
                 startActivity(intent);
             }

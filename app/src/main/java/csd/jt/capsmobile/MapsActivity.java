@@ -1,5 +1,6 @@
 package csd.jt.capsmobile;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
@@ -30,6 +31,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap map) {
+        Intent intent = getIntent();
+        String address = intent.getStringExtra("address");
+        String str = intent.getStringExtra("street");
+        String zip = intent.getStringExtra("zipcode");
+        String area = intent.getStringExtra("area");
+
         // latitude and longitude
         double latitude = 0;
         double longitude = 0;
