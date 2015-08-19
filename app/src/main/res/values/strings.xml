@@ -14,4 +14,6 @@
     <string name="title_activity_event_map_fragment">EventMapFragment</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_results">SearchResultsActivity</string>
+    <string name="title_activity_vol_profile_fragment">VolProfileFragment</string>
+    <string name="title_activity_org_profile_fragment">OrgProfileFragment</string>
 </resources>

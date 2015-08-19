@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        cat1.setOnClickListener(new View.OnClickListener() {
+        cat6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);

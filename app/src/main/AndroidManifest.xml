@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="csd.jt.capsmobile">
+    package="csd.jt.capsmobile" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -16,10 +16,10 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name">
+        android:label="@string/app_name" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,18 +28,16 @@
         </activity>
         <activity
             android:name=".OrganizationActivity"
-            android:label="@string/title_activity_organization"></activity>
+            android:label="@string/title_activity_organization" />
         <activity
             android:name=".VolunteerActivity"
-            android:label="@string/title_activity_volunteer"></activity>
+            android:label="@string/title_activity_volunteer" />
         <activity
             android:name=".EventActivity"
-            android:label="@string/title_activity_event"></activity>
-
+            android:label="@string/title_activity_event" />
         <activity
             android:name=".SearchResultsActivity"
-            android:label="@string/title_activity_results"></activity>
-
+            android:label="@string/title_activity_results" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -50,7 +48,15 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".VolProfileFragment"
+            android:label="@string/title_activity_vol_profile_fragment" >
+        </activity>
+        <activity
+            android:name=".OrgProfileFragment"
+            android:label="@string/title_activity_org_profile_fragment" >
+        </activity>
     </application>
 
 </manifest>
