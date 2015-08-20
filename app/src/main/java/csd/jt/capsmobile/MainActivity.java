@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -96,7 +95,7 @@ public class MainActivity extends Activity {
 
     // build navigation drawer and add listener
     private void addDrawerItems() {
-        String[] navArray = {"Home", "Volunteer", "Organization", "Event"};
+        String[] navArray = {"Home", "Volunteer", "Organization", "Event", "Login", "Sign up"};
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -104,6 +103,10 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Toast.makeText(MainActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
+                if (position == 0) {
+                    Intent intent = new Intent(MainActivity.this, VolunteerActivity.class);
+                    startActivity(intent);
+                }
                 if (position == 1) {
                     Intent intent = new Intent(MainActivity.this, VolunteerActivity.class);
                     startActivity(intent);
@@ -114,6 +117,14 @@ public class MainActivity extends Activity {
                 }
                 if (position == 3) {
                     Intent intent = new Intent(MainActivity.this, EventActivity.class);
+                    startActivity(intent);
+                }
+                if (position == 4) {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+                if (position == 5) {
+                    Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                     startActivity(intent);
                 }
             }
