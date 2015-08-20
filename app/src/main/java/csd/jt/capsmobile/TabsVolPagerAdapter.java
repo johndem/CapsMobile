@@ -19,8 +19,11 @@ public class TabsVolPagerAdapter extends FragmentPagerAdapter {
         switch (index) {
             case 0:
                 // Top Rated fragment activity
-                return new VolActiveEventsFragment();
+                return new VolProfileFragment();
             case 1:
+                // Games fragment activity
+                return new VolActiveEventsFragment();
+            case 2:
                 // Games fragment activity
                 return new VolCompletedEventsFragment();
         }
@@ -31,7 +34,7 @@ public class TabsVolPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // get item count - equal to number of tabs
-        return 2;
+        return 3;
     }
 
 }
