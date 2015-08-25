@@ -2,52 +2,50 @@ package csd.jt.capsmobile;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class LoginActivity extends Activity {
+public class RegisterVolActivity extends Activity {
 
     private ProgressDialog pDialog;
-    private EditText username, password;
-    private Button logBtn;
-    private ServiceHandler sh;
+    private EditText firstname, lastname, username, password, cpassword, email, birthday;
+    private Button regBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register_vol);
 
-        sh = new ServiceHandler();
-
+        firstname = (EditText) findViewById(R.id.firstnameEt);
+        lastname = (EditText) findViewById(R.id.lastnameEt);
         username = (EditText) findViewById(R.id.usernameEt);
-        password = (EditText) findViewById(R.id.passEt);
-        logBtn = (Button) findViewById(R.id.loginBtn);
+        password = (EditText) findViewById(R.id.passwordEt);
+        cpassword = (EditText) findViewById(R.id.firstnameEt);
+        email = (EditText) findViewById(R.id.emailEt);
+        birthday = (EditText) findViewById(R.id.birthdayEt);
+        regBtn = (Button) findViewById(R.id.registerBtn);
 
-        logBtn.setOnClickListener(new View.OnClickListener() {
+        regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String fname = firstname.getText().toString();
+                String lname = lastname.getText().toString();
                 String user = username.getText().toString();
                 String pass = password.getText().toString();
+                String cpass = cpassword.getText().toString();
+                String e = email.getText().toString();
+                String b = birthday.getText().toString();
                 // Calling async task to get json
-                new GetData().execute(user, pass);
+                new GetData().execute(fname, lname, user, pass, cpass, e, b);
             }
         });
     }
@@ -61,7 +59,7 @@ public class LoginActivity extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             // Showing progress dialog
-            pDialog = new ProgressDialog(LoginActivity.this);
+            pDialog = new ProgressDialog(RegisterVolActivity.this);
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
             pDialog.show();
@@ -73,22 +71,33 @@ public class LoginActivity extends Activity {
             // Creating service handler class instance
             ServiceHandler sh = new ServiceHandler();
 
-            String url = "http://10.0.2.2/android/verify-user.php";
+            String url = "http://10.0.2.2/android/register-vol.php";
             HashMap<String, String> params = new HashMap<>();
-            String user = arg[0];
-            String pass = arg[1];
+            String fname = arg[0];
+            String lname = arg[1];
+            String user = arg[2];
+            String pass = arg[3];
+            String cpass = arg[4];
+            String e = arg[5];
+            String b = arg[6];
+            params.put("firstname", fname);
+            params.put("lastname", lname);
             params.put("username", user);
             params.put("password", pass);
+            params.put("cpassword", cpass);
+            params.put("email", e);
+            params.put("birthday", b);
+
             String jsonStr = sh.makeServiceCall(url, params);
 
             Log.d("Response: ", "> " + jsonStr);
             String response = null;
 
             if (jsonStr.equals("\"0\"")) {
-                response = "Your credentials don't match!";
+                response = "There was a problem signing up!";
             }
             else {
-                response = jsonStr;
+                response = "Account successfully created!";
             }
 
             return response;
@@ -99,7 +108,7 @@ public class LoginActivity extends Activity {
 //            super.onPostExecute(result);
 
             // result is the user's id
-            Toast.makeText(LoginActivity.this, result, Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterVolActivity.this, result, Toast.LENGTH_SHORT).show();
             // Dismiss the progress dialog
             if (pDialog.isShowing())
                 pDialog.dismiss();
@@ -111,7 +120,7 @@ public class LoginActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
+        getMenuInflater().inflate(R.menu.menu_register, menu);
         return true;
     }
 

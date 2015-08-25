@@ -4,6 +4,8 @@ package csd.jt.capsmobile;
  * Created by John on 18/7/2015.
  */
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -43,9 +45,15 @@ public class ServiceHandler {
 
 
             String data = null;
+            boolean first = true;
             if (params.size() > 0) {
                 for (String key : params.keySet()) {
-                    data = URLEncoder.encode(key, "UTF-8") + "=" + URLEncoder.encode(params.get(key), "UTF-8");
+                    if (first) {
+                        data = URLEncoder.encode(key, "UTF-8") + "=" + URLEncoder.encode(params.get(key), "UTF-8");
+                        first = false;
+                    }
+                    else
+                        data += "&" + URLEncoder.encode(key, "UTF-8") + "=" + URLEncoder.encode(params.get(key), "UTF-8");
                 }
             }
 

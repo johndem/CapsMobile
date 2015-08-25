@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -125,7 +124,7 @@ public class MainActivity extends Activity {
                     startActivity(intent);
                 }
                 if (position == 6) {
-                    Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                    Intent intent = new Intent(MainActivity.this, RegisterVolActivity.class);
                     startActivity(intent);
                 }
             }

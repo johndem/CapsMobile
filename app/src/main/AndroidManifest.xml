@@ -54,7 +54,7 @@
             android:label="Login" >
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".RegisterVolActivity"
             android:label="Sign in" >
         </activity>
         <activity
