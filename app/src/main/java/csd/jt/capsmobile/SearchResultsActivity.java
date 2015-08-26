@@ -34,9 +34,11 @@ public class SearchResultsActivity extends ListActivity {
    // private ProgressDialog pDialog;
     public ListActivity act = this;
     public String cat = "";
+    HashMap<String, String> params = new HashMap<>();
+
 
     // URL to get contacts JSON
-    private static String url = "http://10.0.2.2/android/find-category.php";//"http://10.0.3.2/CAPS/android/find-category.php";
+    private static String url = "http://10.0.3.2/CAPS/android/find-category.php";//"http://10.0.3.2/CAPS/android/find-category.php";
 
     // JSON Node names
     private static final String TAG_RESULTS = "results";
@@ -71,7 +73,18 @@ public class SearchResultsActivity extends ListActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            cat = extras.getString("category");
+            Intent in = getIntent();
+            if (in.hasExtra("category")) params.put("category", extras.getString("category"));
+
+            if (in.hasExtra("area")) params.put("area", extras.getString("area"));
+
+            if (in.hasExtra("agegroup")) params.put("agegroup", extras.getString("agegroup"));
+
+            if (in.hasExtra("skill")) params.put("skill", extras.getString("skill"));
+
+            if (in.hasExtra("date")) params.put("date", extras.getString("date"));
+
+
         }
 
         dataList = new ArrayList<HashMap<String, String>>();
@@ -147,13 +160,11 @@ public class SearchResultsActivity extends ListActivity {
         protected Void doInBackground(Void... arg0) {
             // Creating service handler class instance
             ServiceHandler sh = new ServiceHandler();
-            Log.d("tag1","Service");
-
-            // Building Parameters
-            HashMap<String, String> params = new HashMap<>();
-            params.put("category", cat);
+            Log.d("tag1", "Service");
 
             // Making a request to url and getting response
+//            params.put("agegroup", "Kids");
+//            params.put("date", "2015-05-05");
             String jsonStr = sh.makeServiceCall(url, params);
 
             Log.d("Response: ", "> " + jsonStr);
