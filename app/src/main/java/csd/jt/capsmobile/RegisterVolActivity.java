@@ -29,7 +29,7 @@ public class RegisterVolActivity extends Activity {
         lastname = (EditText) findViewById(R.id.lastnameEt);
         username = (EditText) findViewById(R.id.usernameEt);
         password = (EditText) findViewById(R.id.passwordEt);
-        cpassword = (EditText) findViewById(R.id.firstnameEt);
+        cpassword = (EditText) findViewById(R.id.cPasswordEt);
         email = (EditText) findViewById(R.id.emailEt);
         birthday = (EditText) findViewById(R.id.birthdayEt);
         regBtn = (Button) findViewById(R.id.registerBtn);
@@ -44,8 +44,17 @@ public class RegisterVolActivity extends Activity {
                 String cpass = cpassword.getText().toString();
                 String e = email.getText().toString();
                 String b = birthday.getText().toString();
-                // Calling async task to get json
-                new GetData().execute(fname, lname, user, pass, cpass, e, b);
+
+                if (pass.equals(cpass)) {
+                    // Calling async task to get json
+                    new GetData().execute(fname, lname, user, pass, cpass, e, b);
+                }
+                else {
+                    Log.d("Password: ", "> " + pass);
+                    Log.d("C Password: ", "> " + cpass);
+                    Toast.makeText(RegisterVolActivity.this, "Password fields don't match!", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
