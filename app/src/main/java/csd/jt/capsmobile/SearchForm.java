@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
@@ -48,7 +50,32 @@ public class SearchForm extends Activity {
         new GetData("http://10.0.3.2/CAPS/android/get-agegroups.php",(Spinner) findViewById(R.id.spAgegroup)).execute();
         new GetData("http://10.0.3.2/CAPS/android/get-skills.php", (Spinner) findViewById(R.id.spSkills)).execute();
 
+        Button btnSearch = (Button) findViewById(R.id.btnSearch);
 
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchForm.this, SearchResultsActivity.class);
+
+                Spinner spCategory = (Spinner) findViewById(R.id.spCategory);
+                if (spCategory.getSelectedItemPosition() > 0) intent.putExtra("category", (String) spCategory.getSelectedItem());
+
+                Spinner spArea = (Spinner) findViewById(R.id.spArea);
+                if (spArea.getSelectedItemPosition() > 0) intent.putExtra("area", (String) spArea.getSelectedItem());
+
+                Spinner spAgegroup = (Spinner) findViewById(R.id.spAgegroup);
+                if (spAgegroup.getSelectedItemPosition() > 0) intent.putExtra("agegroup", (String) spAgegroup.getSelectedItem());
+
+                Spinner spSkill = (Spinner) findViewById(R.id.spSkills);
+                if (spSkill.getSelectedItemPosition() > 0) intent.putExtra("skill", (String) spSkill.getSelectedItem());
+
+                TextView tvDate = (TextView) findViewById(R.id.tvDateShow);
+                if (!tvDate.getText().toString().isEmpty()) intent.putExtra("date", tvDate.getText().toString());
+
+
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -92,6 +119,7 @@ public class SearchForm extends Activity {
             this.url = url;
             this.spinner = spinner;
             dataList = new ArrayList<>();
+            dataList.add("Select One");
         }
 
 
