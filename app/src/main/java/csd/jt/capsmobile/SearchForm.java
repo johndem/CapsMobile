@@ -5,8 +5,10 @@ import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +37,9 @@ public class SearchForm extends Activity {
 
     private static final String TAG_TITLE = "title";
     private static final String TAG_RESULTS = "results";
+    AlertDialog.Builder builder1;
+
+
 
 
     public Activity act = this;
@@ -44,6 +49,16 @@ public class SearchForm extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_form);
+        builder1 = new AlertDialog.Builder(this);
+
+        builder1.setMessage("No selection!");
+        builder1.setCancelable(true);
+        builder1.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
 
         new GetData("http://10.0.3.2/CAPS/android/get-categories.php",(Spinner) findViewById(R.id.spCategory)).execute();
         new GetData("http://10.0.3.2/CAPS/android/get-areas.php", (Spinner) findViewById(R.id.spArea)).execute();
@@ -55,25 +70,31 @@ public class SearchForm extends Activity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean flag = false;
                 Intent intent = new Intent(SearchForm.this, SearchResultsActivity.class);
 
                 Spinner spCategory = (Spinner) findViewById(R.id.spCategory);
-                if (spCategory.getSelectedItemPosition() > 0) intent.putExtra("category", (String) spCategory.getSelectedItem());
+                if (spCategory.getSelectedItemPosition() > 0) { intent.putExtra("category", (String) spCategory.getSelectedItem()); flag = true; }
 
                 Spinner spArea = (Spinner) findViewById(R.id.spArea);
-                if (spArea.getSelectedItemPosition() > 0) intent.putExtra("area", (String) spArea.getSelectedItem());
+                if (spArea.getSelectedItemPosition() > 0) { intent.putExtra("area", (String) spArea.getSelectedItem()); flag = true; }
 
                 Spinner spAgegroup = (Spinner) findViewById(R.id.spAgegroup);
-                if (spAgegroup.getSelectedItemPosition() > 0) intent.putExtra("agegroup", (String) spAgegroup.getSelectedItem());
+                if (spAgegroup.getSelectedItemPosition() > 0) { intent.putExtra("agegroup", (String) spAgegroup.getSelectedItem()); flag = true; }
 
                 Spinner spSkill = (Spinner) findViewById(R.id.spSkills);
-                if (spSkill.getSelectedItemPosition() > 0) intent.putExtra("skill", (String) spSkill.getSelectedItem());
+                if (spSkill.getSelectedItemPosition() > 0) {  intent.putExtra("skill", (String) spSkill.getSelectedItem()); flag = true; }
 
                 TextView tvDate = (TextView) findViewById(R.id.tvDateShow);
-                if (!tvDate.getText().toString().isEmpty()) intent.putExtra("date", tvDate.getText().toString());
+                if (!tvDate.getText().toString().isEmpty()) { intent.putExtra("date", tvDate.getText().toString()); flag =true; }
 
-
-                startActivity(intent);
+                if (flag == false) {
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
+                else {
+                    startActivity(intent);
+                }
             }
         });
 
