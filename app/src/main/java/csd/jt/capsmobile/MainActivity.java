@@ -106,7 +106,7 @@ public class MainActivity extends Activity {
 
     // build navigation drawer and add listener
     private void addDrawerItems() {
-        String[] navArray = {"Home", "Volunteer", "Organization", "Event", "Search", "Login", "Sign up"};
+        String[] navArray = {"Home", "Volunteer", "Organization", "Event", "Search", "Login", "Sign up", "Sign out"};
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -137,6 +137,12 @@ public class MainActivity extends Activity {
                 if (position == 6) {
                     Intent intent = new Intent(MainActivity.this, RegisterVolActivity.class);
                     startActivity(intent);
+                }
+                if (position == 7) {
+                    SharedPreferences myPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = myPrefs.edit();
+                    editor.clear();
+                    editor.commit();
                 }
             }
         });

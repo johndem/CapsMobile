@@ -20,6 +20,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -91,15 +92,28 @@ public class LoginActivity extends Activity {
 
             Log.d("Response: ", "> " + jsonStr);
             String response = null;
+            String userId = null, userRole = null;
 
-            if (jsonStr.equals("\"0\"")) {
+            try {
+                JSONObject jObj = new JSONObject(jsonStr);
+                JSONArray jArray = jObj.getJSONArray("log-state");
+                userId = jArray.getString(0);
+                userRole = jArray.getString(1);
+                Log.d("Id is: ", "> " + userId + " and Role is: " + userRole);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            if (userId.equals("0")) {
                 response = "Your credentials don't match!";
             }
             else {
-                response = jsonStr;
+                response = "Ok";
+
                 SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                editor.putString("userId", jsonStr.replaceAll("^\"|\"$", ""));
+                editor.putString("userId", userId);
+                editor.putString("userRole", userRole);
                 editor.commit();
             }
 
@@ -110,8 +124,13 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(String result) {
 //            super.onPostExecute(result);
 
-            // result is the user's id
-            Toast.makeText(LoginActivity.this, result, Toast.LENGTH_SHORT).show();
+            if (result.equals("Ok")) {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+            else
+                Toast.makeText(LoginActivity.this, result, Toast.LENGTH_SHORT).show();
+
             // Dismiss the progress dialog
             if (pDialog.isShowing())
                 pDialog.dismiss();
