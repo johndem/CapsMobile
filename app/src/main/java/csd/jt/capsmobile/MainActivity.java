@@ -1,7 +1,9 @@
 package csd.jt.capsmobile;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
@@ -16,6 +18,15 @@ public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
+
+
+//    SharedPreferences myPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
+//    String id = myPrefs.getString("userId",null);
+//
+//    if (id == null)
+//            Toast.makeText(SearchForm.this, "Not logged in", Toast.LENGTH_SHORT).show();
+//    else
+//            Toast.makeText(SearchForm.this, "Logged in!", Toast.LENGTH_SHORT).show();
 
 
     @Override

@@ -2,7 +2,9 @@ package csd.jt.capsmobile;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,18 +30,19 @@ public class LoginActivity extends Activity {
     private ProgressDialog pDialog;
     private EditText username, password;
     private Button logBtn;
-    private ServiceHandler sh;
+    SharedPreferences sharedpreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        sh = new ServiceHandler();
-
         username = (EditText) findViewById(R.id.usernameEt);
         password = (EditText) findViewById(R.id.passEt);
         logBtn = (Button) findViewById(R.id.loginBtn);
+
+        sharedpreferences = getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
 
         logBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +97,10 @@ public class LoginActivity extends Activity {
             }
             else {
                 response = jsonStr;
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+
+                editor.putString("userId", jsonStr.replaceAll("^\"|\"$", ""));
+                editor.commit();
             }
 
             return response;
