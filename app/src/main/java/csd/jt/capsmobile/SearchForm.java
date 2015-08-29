@@ -60,10 +60,11 @@ public class SearchForm extends Activity {
                     }
                 });
 
-        new GetData("http://10.0.3.2/CAPS/android/get-categories.php",(Spinner) findViewById(R.id.spCategory)).execute();
-        new GetData("http://10.0.3.2/CAPS/android/get-areas.php", (Spinner) findViewById(R.id.spArea)).execute();
-        new GetData("http://10.0.3.2/CAPS/android/get-agegroups.php",(Spinner) findViewById(R.id.spAgegroup)).execute();
-        new GetData("http://10.0.3.2/CAPS/android/get-skills.php", (Spinner) findViewById(R.id.spSkills)).execute();
+        //http://10.0.3.2/CAPS
+        new GetData("http://10.0.2.2/android/get-categories.php",(Spinner) findViewById(R.id.spCategory)).execute();
+        new GetData("http://10.0.2.2/android/get-areas.php", (Spinner) findViewById(R.id.spArea)).execute();
+        new GetData("http://10.0.2.2/android/get-agegroups.php",(Spinner) findViewById(R.id.spAgegroup)).execute();
+        new GetData("http://10.0.2.2/android/get-skills.php", (Spinner) findViewById(R.id.spSkills)).execute();
 
         Button btnSearch = (Button) findViewById(R.id.btnSearch);
 
@@ -89,10 +90,10 @@ public class SearchForm extends Activity {
                 if (!tvDate.getText().toString().isEmpty()) { intent.putExtra("date", tvDate.getText().toString()); flag =true; }
 
                 if (flag == false) {
-                    AlertDialog alert11 = builder1.create();
-                    alert11.show();
+                    Toast.makeText(SearchForm.this, "Please pick at least one option!", Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    //Toast.makeText(SearchForm.this, "Would start activity/10", Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                 }
             }

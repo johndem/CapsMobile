@@ -45,14 +45,19 @@ public class RegisterVolActivity extends Activity {
                 String e = email.getText().toString();
                 String b = birthday.getText().toString();
 
-                if (pass.equals(cpass)) {
-                    // Calling async task to get json
-                    new GetData().execute(fname, lname, user, pass, cpass, e, b);
+                if (fname.equals("") || lname.equals("") || user.equals("") || pass.equals("") || cpass.equals("") || e.equals("") || b.equals(""))
+                    Toast.makeText(RegisterVolActivity.this, "Please fill all fields!", Toast.LENGTH_SHORT).show();
+                else if (pass.length() < 10) {
+                    Toast.makeText(RegisterVolActivity.this, "Password must be at least 10 characters long!", Toast.LENGTH_SHORT).show();
                 }
-                else {
+                else if (!pass.equals(cpass)) {
                     Log.d("Password: ", "> " + pass);
                     Log.d("C Password: ", "> " + cpass);
                     Toast.makeText(RegisterVolActivity.this, "Password fields don't match!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // Calling async task to get json
+                    new GetData().execute(fname, lname, user, pass, cpass, e, b);
                 }
 
             }
@@ -104,6 +109,12 @@ public class RegisterVolActivity extends Activity {
 
             if (jsonStr.equals("\"0\"")) {
                 response = "There was a problem signing up!";
+            }
+            else if (jsonStr.equals("\"-1\"")) {
+                response = "Username already in use!";
+            }
+            else if (jsonStr.equals("\"-2\"")) {
+                response = "Email already in use!";
             }
             else {
                 response = "Account successfully created!";

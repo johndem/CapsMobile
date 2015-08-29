@@ -46,8 +46,13 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 String user = username.getText().toString();
                 String pass = password.getText().toString();
-                // Calling async task to get json
-                new GetData().execute(user, pass);
+
+                if (user.equals("") || pass.equals(""))
+                    Toast.makeText(LoginActivity.this, "Please fill both fields!", Toast.LENGTH_SHORT).show();
+                else {
+                    // Calling async task to get json
+                    new GetData().execute(user, pass);
+                }
             }
         });
     }
