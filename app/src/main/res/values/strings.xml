@@ -15,4 +15,6 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_results">SearchResultsActivity</string>
     <string name="title_activity_search_form">Search Form</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>
