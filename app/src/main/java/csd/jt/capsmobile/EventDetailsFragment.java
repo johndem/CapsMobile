@@ -34,13 +34,13 @@ public class EventDetailsFragment extends Fragment {
             body = extras.getString("ddesc");
         }
         TextView addressTv = (TextView) rootView.findViewById(R.id.eventAddressTv);
-        addressTv.setText("Address: " + address + " " + str + ", " + area + ", " + zip);
+        addressTv.setText(address + " " + str + ", " + area + ", " + zip);
         TextView timeTv = (TextView) rootView.findViewById(R.id.eventTimeTv);
-        timeTv.setText("When: " + date + ", " + time);
+        timeTv.setText(date + ", " + time);
         TextView ageTv = (TextView) rootView.findViewById(R.id.eventAgeTv);
-        ageTv.setText("Agegroup: " + agegroup);
+        ageTv.setText(agegroup);
         TextView skillsTv = (TextView) rootView.findViewById(R.id.eventSkillsTv);
-        skillsTv.setText("Skills: " + skills);
+        skillsTv.setText(skills);
         TextView bodyTv = (TextView) rootView.findViewById(R.id.eventBodyTv);
         bodyTv.setText(body);
 

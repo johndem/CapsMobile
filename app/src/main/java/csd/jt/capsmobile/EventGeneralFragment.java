@@ -29,11 +29,11 @@ public class EventGeneralFragment extends Fragment {
         TextView titleTv = (TextView) rootView.findViewById(R.id.eventTitleTv);
         titleTv.setText(title);
         TextView catTv = (TextView) rootView.findViewById(R.id.eventCatTv);
-        catTv.setText("Category: " + category);
+        catTv.setText(category);
         TextView areaTv = (TextView) rootView.findViewById(R.id.eventAreaTv);
-        areaTv.setText("Area: " + area);
+        areaTv.setText(area);
         TextView dateTv = (TextView) rootView.findViewById(R.id.eventDateTv);
-        dateTv.setText("Date: " + date);
+        dateTv.setText(date);
         TextView descTv = (TextView) rootView.findViewById(R.id.eventSdescTv);
         descTv.setText(desc);
 

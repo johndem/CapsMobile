@@ -17,6 +17,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,14 +32,14 @@ public class SearchResultsActivity extends ListActivity {
 
     private ListView lv;
 
-   // private ProgressDialog pDialog;
+    // private ProgressDialog pDialog;
     public ListActivity act = this;
     public String cat = "";
     HashMap<String, String> params = new HashMap<>();
 
 
     // URL to get contacts JSON
-    private static String url = "http://10.0.2.2/android/find-category.php";//"http://10.0.3.2/CAPS/android/find-category.php";
+    private static String url = "http://10.0.3.2/CAPS/android/find-category.php";//"http://10.0.3.2/CAPS/android/find-category.php";
 
     // JSON Node names
     private static final String TAG_RESULTS = "results";
@@ -69,7 +70,7 @@ public class SearchResultsActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_results);
-        Log.d("tag1","Oncreate");
+        Log.d("tag1", "Oncreate");
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -134,7 +135,7 @@ public class SearchResultsActivity extends ListActivity {
             }
         }
 
-        return  bundle;
+        return bundle;
     }
 
     /**
@@ -148,7 +149,7 @@ public class SearchResultsActivity extends ListActivity {
             super.onPreExecute();
             Log.d("tag1", "preEx");
 
-             //Showing progress dialog
+            //Showing progress dialog
             pDialog = new ProgressDialog(act);
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
@@ -181,7 +182,7 @@ public class SearchResultsActivity extends ListActivity {
                         JSONObject c = active.getJSONObject(i);
 
                         String title = c.getString(TAG_TITLE);
-                       // String creator = c.getString(TAG_CREATOR);
+                        // String creator = c.getString(TAG_CREATOR);
                         String category = c.getString(TAG_CATEGORY);
                         String address = c.getString(TAG_ADDRESS);
                         String street = c.getString(TAG_STREET);
@@ -227,6 +228,8 @@ public class SearchResultsActivity extends ListActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+
             } else {
                 Log.e("ServiceHandler", "Couldn't get any data from the url");
             }
@@ -243,29 +246,31 @@ public class SearchResultsActivity extends ListActivity {
             /**
              * Updating parsed JSON data into ListView
              * */
-            ListAdapter adapter = new SimpleAdapter(
-                    act, dataList,
-                    R.layout.list_item, new String[]{TAG_TITLE, TAG_CATEGORY, TAG_SDESC}, new int[]{R.id.title, R.id.category, R.id.sdesc});
+            if (dataList.isEmpty()) {
+                Toast.makeText(act, "No events found", Toast.LENGTH_LONG).show();
+            }
+            else {
+                ListAdapter adapter = new SimpleAdapter(
+                        act, dataList,
+                        R.layout.list_item_2, new String[]{TAG_TITLE, TAG_CATEGORY, TAG_AREA, TAG_DAY}, new int[]{R.id.title, R.id.category, R.id.at, R.id.when});
 
-            setListAdapter(adapter);
+                setListAdapter(adapter);
 
-
+            }
         }
-
     }
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            // Handle action bar item clicks here. The action bar will
+            // automatically handle clicks on the Home/Up button, so long
+            // as you specify a parent activity in AndroidManifest.xml.
+            int id = item.getItemId();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+            //noinspection SimplifiableIfStatement
+            if (id == R.id.action_settings) {
+                return true;
+            }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
-}
