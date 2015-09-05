@@ -29,7 +29,7 @@ public class EventActivity extends FragmentActivity {
         // BEGIN_INCLUDE (setup_viewpager)
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        mViewPager.setAdapter(new SamplePagerAdapter());
+        mViewPager.setAdapter(new EventPagerAdapter());
         // END_INCLUDE (setup_viewpager)
 
         // BEGIN_INCLUDE (setup_slidingtablayout)
@@ -63,7 +63,7 @@ public class EventActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    class SamplePagerAdapter extends PagerAdapter {
+    class EventPagerAdapter extends PagerAdapter {
 
         /**
          * @return the number of pages to display

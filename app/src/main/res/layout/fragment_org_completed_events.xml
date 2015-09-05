@@ -7,7 +7,7 @@
          Always give id value as list(@android:id/list)
     -->
     <ListView
-        android:id="@android:id/list"
+        android:id="@+id/completelist"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 
