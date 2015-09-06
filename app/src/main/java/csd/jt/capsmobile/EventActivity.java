@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-public class EventActivity extends FragmentActivity {
+public class EventActivity extends BaseActivity {
 
     private SlidingTabLayout mSlidingTabLayout;
     private ViewPager mViewPager;

@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 
-public class RegisterVolActivity extends Activity {
+public class RegisterVolActivity extends BaseActivity {
 
     private ProgressDialog pDialog;
     private EditText firstname, lastname, username, password, cpassword, email, birthday;

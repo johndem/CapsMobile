@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class SearchForm extends Activity {
+public class SearchForm extends BaseActivity {
 
     private static final String TAG_TITLE = "title";
     private static final String TAG_RESULTS = "results";

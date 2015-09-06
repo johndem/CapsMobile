@@ -39,7 +39,7 @@ public class SearchResultsActivity extends ListActivity {
 
 
     // URL to get contacts JSON
-    private static String url = "http://10.0.3.2/CAPS/android/find-category.php";//"http://10.0.3.2/CAPS/android/find-category.php";
+    private static String url = "http://10.0.2.2/android/find-category.php";//"http://10.0.3.2/CAPS/android/find-category.php";
 
     // JSON Node names
     private static final String TAG_RESULTS = "results";

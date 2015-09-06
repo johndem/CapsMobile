@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class VolunteerActivity extends FragmentActivity {
+public class VolunteerActivity extends BaseActivity {
 
     private SlidingTabLayout mSlidingTabLayout;
     private ViewPager mViewPager;
@@ -189,7 +189,7 @@ public class VolunteerActivity extends FragmentActivity {
         private static final String TAG_POINTS = "points";
 
         // URL to get contacts JSON
-        private String url = "http://10.0.3.2/CAPS/android/find-vol.php";
+        private String url = "http://10.0.2.2/android/find-vol.php";
 
         HashMap<String, String> dataList;
         // contacts JSONArray
@@ -304,7 +304,7 @@ public class VolunteerActivity extends FragmentActivity {
 
     private class GetActivetData extends AsyncTask<Void, Void, Void> {
 
-        private String url = "http://10.0.3.2/CAPS/android/find-vol-active.php";
+        private String url = "http://10.0.2.2/android/find-vol-active.php";
 
         private static final String TAG_ACTIVE = "active";
         private static final String TAG_TITLE = "title";
@@ -502,7 +502,7 @@ public class VolunteerActivity extends FragmentActivity {
         private static final String TAG_IMAGE3 = "image3";
 
         ArrayList<HashMap<String, String>> dataList;
-        private String url = "http://10.0.3.2/CAPS/android/find-vol-completed.php";
+        private String url = "http://10.0.2.2/android/find-vol-completed.php";
         View v;
         JSONArray completed = null;
         public GetCompletedData(View view) {
