@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context="csd.jt.capsmobile.EventGeneralFragment">
+    tools:context="csd.jt.capsmobile.EventGeneralFragment"
+    android:background="#ffe8d5">
 
     <TextView
         android:layout_width="wrap_content"
@@ -16,7 +17,9 @@
         android:layout_gravity="center"
         android:textStyle="bold"
         android:layout_marginBottom="10dp"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:textColor="#FF9639"
+        />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -32,13 +35,16 @@
                 android:text="Category:     "
                 android:id="@+id/tvCat"
                 android:textStyle="bold"
+                android:textColor="#ffc18b"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/eventCatTv"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:textColor="#FF9639"
+                />
 
         </TableRow>
 
@@ -52,13 +58,17 @@
                 android:text="Area:     "
                 android:id="@+id/tvAreaShow"
                 android:textStyle="bold"
+                android:textColor="#ffc18b"
+
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/eventAreaTv"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:textColor="#FF9639"
+                />
         </TableRow>
 
         <TableRow
@@ -71,13 +81,17 @@
                 android:text="Date:     "
                 android:id="@+id/tvDateShow"
                 android:textStyle="bold"
+                android:textColor="#ffc18b"
+
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/eventDateTv"
-                android:layout_marginBottom="15dp"/>
+                android:layout_marginBottom="15dp"
+                android:textColor="#FF9639"
+                />
         </TableRow>
 
     </TableLayout>
@@ -85,6 +99,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/eventSdescTv" />
+        android:id="@+id/eventSdescTv"
+        android:textColor="#FF9639"
+        />
 
 </LinearLayout>

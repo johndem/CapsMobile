@@ -6,7 +6,8 @@
     android:padding="10dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:layout_margin="3dp">
+    android:layout_margin="3dp"
+    android:background="#efffeb">
 
     <!-- Name Label -->
 
@@ -14,7 +15,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <TextView
                 android:id="@+id/title"
@@ -23,7 +25,8 @@
                 android:paddingBottom="2dip"
                 android:paddingTop="6dip"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="#31D100"/>
         </LinearLayout>
 
         <LinearLayout
@@ -38,6 +41,7 @@
                 android:id="@+id/tvCat"
                 android:textStyle="bold"
                 android:textSize="10dp"
+                android:textColor="#31D100"
 
                 />
 
@@ -47,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="10dp"
+                android:textColor="#31D100"
 
 
                 />
@@ -63,7 +68,7 @@
                 android:id="@+id/tvAreaShow"
                 android:textStyle="bold"
                 android:textSize="10dp"
-
+                android:textColor="#31D100"
 
                 />
 
@@ -73,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="10dp"
+                android:textColor="#31D100"
 
 
 
@@ -90,6 +96,7 @@
                 android:id="@+id/tvDateShow"
                 android:textStyle="bold"
                 android:textSize="10dp"
+                android:textColor="#31D100"
 
                 />
 
@@ -99,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="10dp"
-
+                android:textColor="#31D100"
                 />
         </LinearLayout>
 
@@ -110,6 +117,7 @@
         android:paddingBottom="2dip"
         android:paddingTop="6dip"
         android:textSize="10sp"
-        android:text="Click for details >>" />
+        android:text="Click for details >>"
+        android:textColor="#31D100"/>
 
 </LinearLayout>

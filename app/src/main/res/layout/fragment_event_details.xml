@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-
+    android:background="#ffe8d5"
     tools:context="csd.jt.capsmobile.EventDetailsFragment">
 
     <Button
@@ -29,6 +29,8 @@
                     android:id="@+id/textView2"
                     android:textStyle="bold"
                     android:layout_weight="1"
+                    android:textColor="#ffc18b"
+
 
                     />
 
@@ -38,6 +40,8 @@
                     android:id="@+id/eventAddressTv"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
+                    android:textColor="#FF9639"
+
                     />
             </LinearLayout>
 
@@ -54,8 +58,10 @@
                     android:id="@+id/textView3"
                     android:textStyle="bold"
                     android:layout_weight="1"
+                        android:textColor="#ffc18b"
 
-                    />
+
+                        />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -63,6 +69,8 @@
                     android:id="@+id/eventTimeTv"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
+                    android:textColor="#FF9639"
+
                     />
             </LinearLayout>
 
@@ -79,6 +87,8 @@
                     android:id="@+id/textView4"
                     android:textStyle="bold"
                     android:layout_weight="1"
+                    android:textColor="#ffc18b"
+
 
                     />
 
@@ -88,6 +98,8 @@
                     android:id="@+id/eventAgeTv"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
+                    android:textColor="#FF9639"
+
                     />
             </LinearLayout>
 
@@ -104,6 +116,8 @@
                     android:id="@+id/textView5"
                     android:textStyle="bold"
                     android:layout_weight="1"
+                    android:textColor="#ffc18b"
+
 
                     />
 
@@ -113,6 +127,8 @@
                     android:id="@+id/eventSkillsTv"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
+                    android:textColor="#FF9639"
+
                     />
             </LinearLayout>
 
@@ -130,6 +146,8 @@
                     android:id="@+id/textView"
                     android:textStyle="bold"
                     android:textSize="15dp"
+                    android:textColor="#ffc18b"
+
                     />
             </LinearLayout>
 
@@ -145,7 +163,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/eventBodyTv"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="10dp"
+                    android:textColor="#FF9639"
+                    />
 </ScrollView>
             </LinearLayout>
 
