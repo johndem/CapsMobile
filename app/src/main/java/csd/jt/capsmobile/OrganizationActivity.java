@@ -418,7 +418,7 @@ public class OrganizationActivity extends BaseActivity {
 
             ListAdapter adapter = new SimpleAdapter(
                     act, dataList,
-                    R.layout.list_item, new String[]{TAG_TITLE, TAG_CATEGORY, TAG_SDESC}, new int[]{R.id.title, R.id.category, R.id.sdesc});
+                    R.layout.list_item_2, new String[]{TAG_TITLE, TAG_CATEGORY, TAG_AREA, TAG_DAY}, new int[]{R.id.title, R.id.category, R.id.at, R.id.when});
 
             ListView list = (ListView) v.findViewById(R.id.activelist);
 
@@ -596,7 +596,7 @@ public class OrganizationActivity extends BaseActivity {
              * */
             ListAdapter adapter = new SimpleAdapter(
                     act, dataList,
-                    R.layout.list_item, new String[]{TAG_TITLE, TAG_CATEGORY, TAG_SDESC}, new int[]{R.id.title, R.id.category, R.id.sdesc});
+                    R.layout.list_item_2, new String[]{TAG_TITLE, TAG_CATEGORY, TAG_AREA, TAG_DAY}, new int[]{R.id.title, R.id.category, R.id.at, R.id.when});
 
             ListView list = (ListView) v.findViewById(R.id.completelist);
 
