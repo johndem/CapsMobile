@@ -3,6 +3,7 @@ package csd.jt.capsmobile;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -114,8 +115,8 @@ public class OrganizationActivity extends BaseActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             if (position == 0) return "Profile";
-            else if (position == 1) return "Active events";
-            else return "Completed Events";
+            else if (position == 1) return "History";
+            else return "Notifications";
         }
         // END_INCLUDE (pageradapter_getpagetitle)
 
@@ -149,9 +150,9 @@ public class OrganizationActivity extends BaseActivity {
                         container, false);
 
 
-                GetCompletedData com = new GetCompletedData(view);
+                GetNotificationData not = new GetNotificationData(view);
 
-                com.execute();
+                not.execute();
             }
             // Add the newly created View to the ViewPager
             container.addView(view);
@@ -210,7 +211,9 @@ public class OrganizationActivity extends BaseActivity {
 
             // Building Parameters
             HashMap<String, String> params = new HashMap<>();
-            params.put("id", "1");
+            SharedPreferences myPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
+            String id = myPrefs.getString("userId",null);
+            params.put("id", id);
 
             // Making a request to url and getting response
             String jsonStr = sh.makeServiceCall(url, params);
@@ -354,7 +357,9 @@ public class OrganizationActivity extends BaseActivity {
 
             // Building Parameters
             HashMap<String, String> params = new HashMap<>();
-            params.put("id", "1");
+            SharedPreferences myPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
+            String id = myPrefs.getString("userId",null);
+            params.put("id", id);
 
             // Making a request to url and getting response
             String jsonStr = sh.makeServiceCall(urlActive, params);
@@ -595,10 +600,12 @@ public class OrganizationActivity extends BaseActivity {
 
     }
 
-    private class GetCompletedData extends AsyncTask<Void, Void, Void> {
+    private class GetNotificationData extends AsyncTask<Void, Void, Void> {
 
         // JSON Node names
-        private static final String TAG_COMPLETED = "completed";
+        private static final String TAG_NOTIFICATIONS = "notifications";
+        private static final String TAG_MESSAGE = "message";
+        private static final String TAG_DATE = "date";
         private static final String TAG_TITLE = "title";
         private static final String TAG_CATEGORY = "category";
         private static final String TAG_ADDRESS = "address";
@@ -616,10 +623,12 @@ public class OrganizationActivity extends BaseActivity {
         private static final String TAG_IMAGE3 = "image3";
 
         ArrayList<HashMap<String, String>> dataList;
-        private String url = "http://10.0.2.2/android/find-org-completed.php";
+        private String url = "http://10.0.2.2/android/get-notifications.php";
+
         View v;
-        JSONArray completed = null;
-        public GetCompletedData(View view) {
+        JSONArray notifications = null;
+
+        public GetNotificationData(View view) {
             dataList = new ArrayList<HashMap<String, String>>();
             v = view;
         }
@@ -639,7 +648,14 @@ public class OrganizationActivity extends BaseActivity {
 
             // Building Parameters
             HashMap<String, String> params = new HashMap<>();
-            params.put("id", "1");
+            SharedPreferences myPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
+            String id = myPrefs.getString("userId", null);
+            String role = myPrefs.getString("userRole",null);
+            params.put("id", id);
+            if (role.equals("vol"))
+                params.put("role", "0");
+            else if (role.equals("org"))
+                params.put("role", "1");
 
             // Making a request to url and getting response
             String jsonStr = sh.makeServiceCall(url, params);
@@ -651,13 +667,15 @@ public class OrganizationActivity extends BaseActivity {
                     JSONObject jsonObj = new JSONObject(jsonStr);
 
                     // Getting JSON Array node
-                    completed = jsonObj.getJSONArray(TAG_COMPLETED);
+                    notifications = jsonObj.getJSONArray(TAG_NOTIFICATIONS);
 
                     // looping through All Contacts
-                    for (int i = 0; i < completed.length(); i++) {
-                        JSONObject c = completed.getJSONObject(i);
+                    for (int i = 0; i < notifications.length(); i++) {
+                        JSONObject c = notifications.getJSONObject(i);
 
+                        String message = c.getString(TAG_MESSAGE);
                         String title = c.getString(TAG_TITLE);
+                        String date = c.getString(TAG_DATE);
                         String category = c.getString(TAG_CATEGORY);
                         String address = c.getString(TAG_ADDRESS);
                         String street = c.getString(TAG_STREET);
@@ -678,7 +696,9 @@ public class OrganizationActivity extends BaseActivity {
                         HashMap<String, String> row = new HashMap<String, String>();
 
                         // adding each child node to HashMap key => value
+                        row.put(TAG_MESSAGE, message);
                         row.put(TAG_TITLE, title);
+                        row.put(TAG_DATE, date);
                         row.put(TAG_CATEGORY, category);
                         row.put(TAG_ADDRESS, address);
                         row.put(TAG_STREET, street);
@@ -719,9 +739,9 @@ public class OrganizationActivity extends BaseActivity {
              * */
             ListAdapter adapter = new SimpleAdapter(
                     act, dataList,
-                    R.layout.list_item_2, new String[]{TAG_TITLE, TAG_CATEGORY, TAG_AREA, TAG_DAY}, new int[]{R.id.title, R.id.category, R.id.at, R.id.when});
+                    R.layout.list_item_3, new String[]{TAG_MESSAGE, TAG_TITLE, TAG_DATE}, new int[]{R.id.message, R.id.event, R.id.date});
 
-            ListView list = (ListView) v.findViewById(R.id.completelist);
+            ListView list = (ListView) v.findViewById(R.id.messageList);
 
             list.setAdapter(adapter);
 
@@ -732,7 +752,7 @@ public class OrganizationActivity extends BaseActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(act, EventActivity.class);
 
-                    TextView tv = (TextView) view.findViewById(R.id.title);
+                    TextView tv = (TextView) view.findViewById(R.id.event);
                     String title = tv.getText().toString();
 
                     Bundle params = getParams(title);
@@ -771,7 +791,6 @@ public class OrganizationActivity extends BaseActivity {
         }
 
     }
-
-    }
+}
 
 
