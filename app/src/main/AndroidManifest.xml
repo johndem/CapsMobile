@@ -29,16 +29,16 @@
         </activity>
         <activity
             android:name=".OrganizationActivity"
-            android:label="@string/title_activity_organization" />
+            android:label="@string/app_name" />
         <activity
             android:name=".VolunteerActivity"
-            android:label="@string/title_activity_volunteer" />
+            android:label="@string/app_name" />
         <activity
             android:name=".EventActivity"
-            android:label="@string/title_activity_event" />
+            android:label="@string/app_name" />
         <activity
             android:name=".SearchResultsActivity"
-            android:label="@string/title_activity_results" />
+            android:label="@string/app_name" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -49,22 +49,22 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/app_name" />
         <activity
             android:name=".LoginActivity"
-            android:label="Login" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".RegisterVolActivity"
-            android:label="Sign in" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".SearchForm"
-            android:label="@string/title_activity_search_form" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".BaseActivity"
-            android:label="@string/title_activity_base" >
+            android:label="@string/app_name" >
         </activity>
     </application>
 

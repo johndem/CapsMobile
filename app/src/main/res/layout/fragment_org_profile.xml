@@ -1,40 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <ImageView
+        android:id="@+id/orgProfileImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/orgProfileImg"
         android:layout_gravity="center_horizontal"
-        android:minHeight="150dp"
-        android:minWidth="150dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp" />
+        android:background="@drawable/profile"
+        android:minHeight="150dp"
+        android:minWidth="150dp" />
 
-    <TextView
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Title: "
-        android:id="@+id/orgTitleTv"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="10dp" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Email: "
-        android:id="@+id/orgEmailTv"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/orgTitleTv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Title:    "
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="fill_parent"
+        <TextView
+            android:id="@+id/orgTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/orgDescTv"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="10dp" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/orgEmailTv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Email:    "
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/orgEmailTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/orgDescTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp" />
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
