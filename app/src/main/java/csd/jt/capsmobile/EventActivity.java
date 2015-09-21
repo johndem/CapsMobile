@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -36,8 +37,13 @@ public class EventActivity extends BaseActivity {
     private SlidingTabLayout mSlidingTabLayout;
     private ViewPager mViewPager;
     Activity act = this;
+    JSONArray active = null;
 
     private ProgressDialog pDialog;
+
+    private static final String TAG_RESULTS = "results";
+    private static final String TAG_TITLE = "title";
+    private static final String TAG_VALUE = "value";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,12 +164,16 @@ public class EventActivity extends BaseActivity {
                 String role = myPrefs.getString("userRole",null);
 
                 if (role.equals("vol")) {
-//                    TextView applyTv = (TextView) view.findViewById(R.id.applyTv);
-//                    applyTv.setVisibility(view.VISIBLE);
+                    TextView applyTv = (TextView) view.findViewById(R.id.applyTv);
+                    applyTv.setVisibility(view.VISIBLE);
 //                    Spinner applySpin = (Spinner) findViewById(R.id.applySpin);
+
+                    new GetSkillData("http://10.0.2.2/CAPS/android/get-event-skills.php", (Spinner) findViewById(R.id.applySpin)).execute();
+
 //                    applySpin.setVisibility(view.VISIBLE);
-//                    Button applyBtn = (Button) findViewById(R.id.applyBtn);
-//                    applyBtn.setVisibility(view.VISIBLE);
+
+                    Button applyBtn = (Button) findViewById(R.id.applyBtn);
+                    applyBtn.setVisibility(view.VISIBLE);
                 }
                 else if (role.equals("org")) {
                     TextView applicantsTv = (TextView) view.findViewById(R.id.applicantTv);
@@ -357,6 +367,103 @@ public class EventActivity extends BaseActivity {
                 ListView list = (ListView) v.findViewById(R.id.applicantLv);
 
                 list.setAdapter(adapter);
+
+
+            }
+
+        }
+
+
+        private class GetSkillData extends AsyncTask<Void, Void, Void> {
+
+            ArrayList<String> dataList;
+            private ProgressDialog pDialog;
+            String url = "";
+            Spinner spinner;
+
+            public GetSkillData(String url, Spinner spinner)
+            {
+                this.url = url;
+                this.spinner = spinner;
+                dataList = new ArrayList<>();
+                dataList.add("Select One");
+            }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                Log.d("tag1", "preEx");
+
+                //Showing progress dialog
+                pDialog = new ProgressDialog(act);
+                pDialog.setMessage("Fetching data from database");
+                pDialog.setCancelable(false);
+                pDialog.show();
+
+            }
+
+            @Override
+            protected Void doInBackground(Void... arg0) {
+                // Creating service handler class instance
+                ServiceHandler sh = new ServiceHandler();
+
+                HashMap<String, String> params = new HashMap<>();
+                Bundle extras = act.getIntent().getExtras();
+                String event_id = null;
+                if (extras != null) {
+                    event_id = extras.getString("id");
+                }
+                params.put("event_id", event_id);
+
+                // Making a request to url and getting response
+                String jsonStr = sh.makeServiceCall(url,params);
+
+                Log.d("Response: ", "> " + jsonStr);
+
+                if (jsonStr != null) {
+                    try {
+                        JSONObject jsonObj = new JSONObject(jsonStr);
+
+                        // Getting JSON Array node
+                        active = jsonObj.getJSONArray(TAG_RESULTS);
+
+                        // looping through All Contacts
+                        for (int i = 0; i < active.length(); i++) {
+                            JSONObject c = active.getJSONObject(i);
+
+                            String title = c.getString(TAG_TITLE);
+                            String value = c.getString(TAG_VALUE);
+
+                            // adding contact to contact list
+                            dataList.add(title);
+                            //dataList.add(value);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.e("ServiceHandler", "Couldn't get any data from the url");
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                // Dismiss the progress dialog
+                if (pDialog.isShowing())
+                    pDialog.dismiss();
+
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(act,
+                        android.R.layout.simple_spinner_item, dataList);
+
+                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                Spinner applySpin = (Spinner) findViewById(R.id.applySpin);
+                applySpin.setVisibility(View.VISIBLE);
+                applySpin.setAdapter(dataAdapter);
+
 
 
             }
