@@ -82,12 +82,15 @@ public class LoginActivity extends BaseActivity {
             // Creating service handler class instance
             ServiceHandler sh = new ServiceHandler();
 
-            String url = "http://10.0.2.2/android/verify-user.php";
+            String url = "http://10.0.2.2/CAPS/android/verify-user.php";
             HashMap<String, String> params = new HashMap<>();
             String user = arg[0];
             String pass = arg[1];
             params.put("username", user);
             params.put("password", pass);
+
+            Log.d("Response: ", "> " + user + " " + pass);
+
             String jsonStr = sh.makeServiceCall(url, params);
 
             Log.d("Response: ", "> " + jsonStr);

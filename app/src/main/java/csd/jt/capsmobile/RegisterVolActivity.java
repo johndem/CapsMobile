@@ -85,7 +85,7 @@ public class RegisterVolActivity extends BaseActivity {
             // Creating service handler class instance
             ServiceHandler sh = new ServiceHandler();
 
-            String url = "http://10.0.2.2/android/register-vol.php";
+            String url = "http://10.0.2.2/CAPS/android/register-vol.php";
             HashMap<String, String> params = new HashMap<>();
             String fname = arg[0];
             String lname = arg[1];

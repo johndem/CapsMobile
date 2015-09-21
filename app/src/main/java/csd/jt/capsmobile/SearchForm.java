@@ -61,10 +61,10 @@ public class SearchForm extends BaseActivity {
                 });
 
         //http://10.0.3.2/CAPS
-        new GetData("http://10.0.2.2/android/get-categories.php",(Spinner) findViewById(R.id.spCategory)).execute();
-        new GetData("http://10.0.2.2/android/get-areas.php", (Spinner) findViewById(R.id.spArea)).execute();
-        new GetData("http://10.0.2.2/android/get-agegroups.php",(Spinner) findViewById(R.id.spAgegroup)).execute();
-        new GetData("http://10.0.2.2/android/get-skills.php", (Spinner) findViewById(R.id.spSkills)).execute();
+        new GetData("http://10.0.2.2/CAPS/android/get-categories.php",(Spinner) findViewById(R.id.spCategory)).execute();
+        new GetData("http://10.0.2.2/CAPS/android/get-areas.php", (Spinner) findViewById(R.id.spArea)).execute();
+        new GetData("http://10.0.2.2/CAPS/android/get-agegroups.php",(Spinner) findViewById(R.id.spAgegroup)).execute();
+        new GetData("http://10.0.2.2/CAPS/android/get-skills.php", (Spinner) findViewById(R.id.spSkills)).execute();
 
         Button btnSearch = (Button) findViewById(R.id.btnSearch);
 

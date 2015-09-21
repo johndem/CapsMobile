@@ -39,10 +39,11 @@ public class SearchResultsActivity extends ListActivity {
 
 
     // URL to get contacts JSON
-    private static String url = "http://10.0.2.2/android/find-category.php";//http://10.0.3.2/CAPS/android/find-category.php";
+    private static String url = "http://10.0.2.2/CAPS/android/find-category.php";//http://10.0.3.2/CAPS/android/find-category.php";
 
     // JSON Node names
     private static final String TAG_RESULTS = "results";
+    private static final String TAG_ID = "id";
     private static final String TAG_TITLE = "title";
     private static final String TAG_CREATOR = "creator";
     private static final String TAG_CATEGORY = "category";
@@ -117,6 +118,7 @@ public class SearchResultsActivity extends ListActivity {
 
         for (HashMap<String, String> listItem : dataList) {
             if (listItem.get(TAG_TITLE).equals(title)) {
+                bundle.putString(TAG_ID, listItem.get(TAG_ID));
                 bundle.putString(TAG_TITLE, title);
                 bundle.putString(TAG_CATEGORY, listItem.get(TAG_CATEGORY));
                 bundle.putString(TAG_ADDRESS, listItem.get(TAG_ADDRESS));
@@ -181,6 +183,7 @@ public class SearchResultsActivity extends ListActivity {
                     for (int i = 0; i < active.length(); i++) {
                         JSONObject c = active.getJSONObject(i);
 
+                        String id = c.getString(TAG_ID);
                         String title = c.getString(TAG_TITLE);
                         // String creator = c.getString(TAG_CREATOR);
                         String category = c.getString(TAG_CATEGORY);
@@ -203,6 +206,7 @@ public class SearchResultsActivity extends ListActivity {
                         HashMap<String, String> row = new HashMap<String, String>();
 
                         // adding each child node to HashMap key => value
+                        row.put(TAG_ID, id);
                         row.put(TAG_TITLE, title);
                         Log.d("title", title);
                         //row.put(TAG_CREATOR, creator);

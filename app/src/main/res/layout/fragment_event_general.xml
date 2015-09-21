@@ -103,4 +103,38 @@
         android:textColor="#FF9639"
         />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apply for:"
+        android:id="@+id/applyTv"
+        android:visibility="gone" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/applySpin"
+        android:spinnerMode="dropdown"
+        android:visibility="gone" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apply"
+        android:id="@+id/applyBtn"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Applicants:"
+        android:id="@+id/applicantTv"
+        android:visibility="gone" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/applicantLv"
+        android:visibility="gone" />
+
 </LinearLayout>

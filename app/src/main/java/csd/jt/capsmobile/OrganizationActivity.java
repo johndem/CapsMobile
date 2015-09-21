@@ -185,7 +185,7 @@ public class OrganizationActivity extends BaseActivity {
         private static final String TAG_DESCRIPTION = "description";
         private static final String TAG_IMAGE = "image";
         // URL to get contacts JSON
-        private String url = "http://10.0.2.2/android/find-org.php";   // http://10.0.3.2/CAPS/android
+        private String url = "http://10.0.2.2/CAPS/android/find-org.php";   // http://10.0.3.2/CAPS/android
         HashMap<String, String> dataList;
         // contacts JSONArray
         JSONArray completed = null;
@@ -292,10 +292,11 @@ public class OrganizationActivity extends BaseActivity {
 
     private class GetHistoryData extends AsyncTask<Void, Void, Void> {
 
-        private String urlActive = "http://10.0.2.2/android/find-org-active.php";
-        private String urlCompleted = "http://10.0.2.2/android/find-org-completed.php";
+        private String urlActive = "http://10.0.2.2/CAPS/android/find-org-active.php";
+        private String urlCompleted = "http://10.0.2.2/CAPS/android/find-org-completed.php";
 
         private static final String TAG_ACTIVE = "active";
+        private static final String TAG_aID = "id";
         private static final String TAG_aTITLE = "title";
         private static final String TAG_aCATEGORY = "category";
         private static final String TAG_aADDRESS = "address";
@@ -313,6 +314,7 @@ public class OrganizationActivity extends BaseActivity {
         private static final String TAG_aIMAGE3 = "image3";
 
         private static final String TAG_COMPLETED = "completed";
+        private static final String TAG_cID = "id";
         private static final String TAG_cTITLE = "title";
         private static final String TAG_cCATEGORY = "category";
         private static final String TAG_cADDRESS = "address";
@@ -377,6 +379,7 @@ public class OrganizationActivity extends BaseActivity {
                     for (int i = 0; i < active.length(); i++) {
                         JSONObject c = active.getJSONObject(i);
 
+                        String event_id = c.getString(TAG_aID);
                         String title = c.getString(TAG_aTITLE);
                         String category = c.getString(TAG_aCATEGORY);
                         String address = c.getString(TAG_aADDRESS);
@@ -398,6 +401,7 @@ public class OrganizationActivity extends BaseActivity {
                         HashMap<String, String> row = new HashMap<String, String>();
 
                         // adding each child node to HashMap key => value
+                        row.put(TAG_aID, event_id);
                         row.put(TAG_aTITLE, title);
                         row.put(TAG_aCATEGORY, category);
                         row.put(TAG_aADDRESS, address);
@@ -441,6 +445,7 @@ public class OrganizationActivity extends BaseActivity {
                     for (int i = 0; i < active.length(); i++) {
                         JSONObject c = active.getJSONObject(i);
 
+                        String event_id = c.getString(TAG_cID);
                         String title = c.getString(TAG_cTITLE);
                         String category = c.getString(TAG_cCATEGORY);
                         String address = c.getString(TAG_cADDRESS);
@@ -462,6 +467,7 @@ public class OrganizationActivity extends BaseActivity {
                         HashMap<String, String> row = new HashMap<String, String>();
 
                         // adding each child node to HashMap key => value
+                        row.put(TAG_cID, event_id);
                         row.put(TAG_cTITLE, title);
                         row.put(TAG_cCATEGORY, category);
                         row.put(TAG_cADDRESS, address);
@@ -552,6 +558,7 @@ public class OrganizationActivity extends BaseActivity {
             if (list == 0) {
                 for (HashMap<String, String> listItem : dataListA) {
                     if (listItem.get(TAG_aTITLE).equals(title)) {
+                        bundle.putString(TAG_aID, listItem.get(TAG_aID));
                         bundle.putString(TAG_aTITLE, title);
                         bundle.putString(TAG_aCATEGORY, listItem.get(TAG_aCATEGORY));
                         bundle.putString(TAG_aADDRESS, listItem.get(TAG_aADDRESS));
@@ -573,6 +580,7 @@ public class OrganizationActivity extends BaseActivity {
             else if (list == 1) {
                 for (HashMap<String, String> listItem : dataListC) {
                     if (listItem.get(TAG_cTITLE).equals(title)) {
+                        bundle.putString(TAG_cID, listItem.get(TAG_cID));
                         bundle.putString(TAG_cTITLE, title);
                         bundle.putString(TAG_cCATEGORY, listItem.get(TAG_cCATEGORY));
                         bundle.putString(TAG_cADDRESS, listItem.get(TAG_cADDRESS));
@@ -607,6 +615,7 @@ public class OrganizationActivity extends BaseActivity {
         private static final String TAG_MESSAGE = "message";
         private static final String TAG_DATE = "date";
         private static final String TAG_TITLE = "title";
+        private static final String TAG_ID = "id";
         private static final String TAG_CATEGORY = "category";
         private static final String TAG_ADDRESS = "address";
         private static final String TAG_STREET = "street";
@@ -623,7 +632,7 @@ public class OrganizationActivity extends BaseActivity {
         private static final String TAG_IMAGE3 = "image3";
 
         ArrayList<HashMap<String, String>> dataList;
-        private String url = "http://10.0.2.2/android/get-notifications.php";
+        private String url = "http://10.0.2.2/CAPS/android/get-notifications.php";
 
         View v;
         JSONArray notifications = null;
@@ -676,6 +685,7 @@ public class OrganizationActivity extends BaseActivity {
                         String message = c.getString(TAG_MESSAGE);
                         String title = c.getString(TAG_TITLE);
                         String date = c.getString(TAG_DATE);
+                        String event_id = c.getString(TAG_ID);
                         String category = c.getString(TAG_CATEGORY);
                         String address = c.getString(TAG_ADDRESS);
                         String street = c.getString(TAG_STREET);
@@ -699,6 +709,7 @@ public class OrganizationActivity extends BaseActivity {
                         row.put(TAG_MESSAGE, message);
                         row.put(TAG_TITLE, title);
                         row.put(TAG_DATE, date);
+                        row.put(TAG_ID, event_id);
                         row.put(TAG_CATEGORY, category);
                         row.put(TAG_ADDRESS, address);
                         row.put(TAG_STREET, street);
@@ -769,6 +780,7 @@ public class OrganizationActivity extends BaseActivity {
 
             for (HashMap<String, String> listItem : dataList) {
                 if (listItem.get(TAG_TITLE).equals(title)) {
+                    bundle.putString(TAG_ID, listItem.get(TAG_ID));
                     bundle.putString(TAG_TITLE, title);
                     bundle.putString(TAG_CATEGORY, listItem.get(TAG_CATEGORY));
                     bundle.putString(TAG_ADDRESS, listItem.get(TAG_ADDRESS));

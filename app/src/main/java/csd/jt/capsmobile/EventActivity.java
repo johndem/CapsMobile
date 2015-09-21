@@ -1,18 +1,34 @@
 package csd.jt.capsmobile;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class EventActivity extends BaseActivity {
@@ -21,10 +37,16 @@ public class EventActivity extends BaseActivity {
     private ViewPager mViewPager;
     Activity act = this;
 
+    private ProgressDialog pDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Please wait...");
+        pDialog.setCancelable(false);
 
         // BEGIN_INCLUDE (setup_viewpager)
         // Get the ViewPager and set it's PagerAdapter so that it can display items
@@ -92,7 +114,7 @@ public class EventActivity extends BaseActivity {
          */
         @Override
         public CharSequence getPageTitle(int position) {
-            if (position == 0) return "General Information";
+            if (position == 0) return "General";
             else return "Details";
         }
         // END_INCLUDE (pageradapter_getpagetitle)
@@ -130,6 +152,33 @@ public class EventActivity extends BaseActivity {
                 dateTv.setText(date);
                 TextView descTv = (TextView) view.findViewById(R.id.eventSdescTv);
                 descTv.setText(desc);
+
+                SharedPreferences myPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
+                String id = myPrefs.getString("userId", null);
+                String role = myPrefs.getString("userRole",null);
+
+                if (role.equals("vol")) {
+//                    TextView applyTv = (TextView) view.findViewById(R.id.applyTv);
+//                    applyTv.setVisibility(view.VISIBLE);
+//                    Spinner applySpin = (Spinner) findViewById(R.id.applySpin);
+//                    applySpin.setVisibility(view.VISIBLE);
+//                    Button applyBtn = (Button) findViewById(R.id.applyBtn);
+//                    applyBtn.setVisibility(view.VISIBLE);
+                }
+                else if (role.equals("org")) {
+                    TextView applicantsTv = (TextView) view.findViewById(R.id.applicantTv);
+                    applicantsTv.setVisibility(view.VISIBLE);
+                    ListView applicantLv = (ListView) view.findViewById(R.id.applicantLv);
+                    applicantLv.setVisibility(view.VISIBLE);
+
+
+                    GetApplicantData app = new GetApplicantData(view);
+                    app.execute();
+
+                }
+
+
+
             }
             else {
                 view  = act.getLayoutInflater().inflate(R.layout.fragment_event_details,
@@ -191,6 +240,131 @@ public class EventActivity extends BaseActivity {
             container.removeView((View) object);
         }
 
+
+
+        private class GetApplicantData extends AsyncTask<Void, Void, Void> {
+
+            // JSON Node names
+            private static final String TAG_APPLICANTS = "applicants";
+            private static final String TAG_ID = "id";
+            private static final String TAG_USERNAME = "username";
+            private static final String TAG_FIRSTNAME = "firstname";
+            private static final String TAG_LASTNAME = "lastname";
+            private static final String TAG_SKILL = "skill";
+            private static final String TAG_SELECTED = "selected";
+
+            ArrayList<HashMap<String, String>> dataList;
+            private String url = "http://10.0.2.2/CAPS/android/find-applicants.php";
+
+            View v;
+            JSONArray applicants = null;
+
+            public GetApplicantData(View view) {
+                dataList = new ArrayList<HashMap<String, String>>();
+                v = view;
+            }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                // Showing progress dialog
+                pDialog.show();
+
+            }
+
+            @Override
+            protected Void doInBackground(Void... arg0) {
+                // Creating service handler class instance
+                ServiceHandler sh = new ServiceHandler();
+
+                // Building Parameters
+                HashMap<String, String> params = new HashMap<>();
+                SharedPreferences myPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
+                String org_id = myPrefs.getString("userId", null);
+                params.put("id", org_id);
+                Bundle extras = act.getIntent().getExtras();
+                String event_id = null;
+                if (extras != null) {
+                    event_id = extras.getString("id");
+                    params.put("event-id", event_id);
+                }
+
+                // Making a request to url and getting response
+                String jsonStr = sh.makeServiceCall(url, params);
+
+                Log.d("Response: ", "> " + jsonStr);
+
+                if (jsonStr != null) {
+                    try {
+                        JSONObject jsonObj = new JSONObject(jsonStr);
+
+                        // Getting JSON Array node
+                        applicants = jsonObj.getJSONArray(TAG_APPLICANTS);
+
+                        // looping through All Contacts
+                        for (int i = 0; i < applicants.length(); i++) {
+                            JSONObject c = applicants.getJSONObject(i);
+
+                            String id = c.getString(TAG_ID);
+                            String username = c.getString(TAG_USERNAME);
+                            String firstname = c.getString(TAG_FIRSTNAME);
+                            String lastname = c.getString(TAG_LASTNAME);
+                            String skill = c.getString(TAG_SKILL);
+                            String selected = c.getString(TAG_SELECTED);
+
+                            String apply = firstname + " " + lastname + " has applied for " + skill;
+
+
+                            // tmp hashmap for single contact
+                            HashMap<String, String> row = new HashMap<String, String>();
+
+                            // adding each child node to HashMap key => value
+                            row.put(TAG_ID, id);
+                            row.put(TAG_USERNAME, username);
+                            row.put(TAG_FIRSTNAME, firstname);
+                            row.put(TAG_LASTNAME, lastname);
+                            row.put(TAG_SKILL, skill);
+                            row.put(TAG_SELECTED, selected);
+                            row.put("apply", apply);
+
+                            // adding contact to contact list
+                            dataList.add(row);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.e("ServiceHandler", "Couldn't get any data from the url");
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                // Dismiss the progress dialog
+                if (pDialog.isShowing())
+                    pDialog.dismiss();
+
+                /**
+                 * Updating parsed JSON data into ListView
+                 * */
+                ListAdapter adapter = new SimpleAdapter(
+                        act, dataList,
+                        R.layout.list_item_4, new String[]{"apply"}, new int[]{R.id.appVolTv});
+
+                ListView list = (ListView) v.findViewById(R.id.applicantLv);
+
+                list.setAdapter(adapter);
+
+
+            }
+
+        }
+
     }
+
+
 }
 
