@@ -9,7 +9,6 @@
         android:layout_height="wrap_content"
         android:paddingBottom="2dip"
         android:paddingTop="6dip"
-        android:textColor="#ffbdb4b8"
         android:textSize="16sp"
         android:textStyle="bold" />
 

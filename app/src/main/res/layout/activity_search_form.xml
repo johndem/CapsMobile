@@ -110,7 +110,8 @@
                 android:id="@+id/btnDate"
                 android:layout_column="1"
                 android:layout_weight="1"
-                android:onClick="showDatePickerDialog"/>
+                android:onClick="showDatePickerDialog"
+                android:background="#31D100" />
 
             <!--<DatePicker-->
             <!--android:layout_width="wrap_content"-->
@@ -151,7 +152,7 @@
                 android:paddingRight="26dip"
                 android:singleLine="true"
                 android:gravity="center"
-                />
+                android:background="#31D100" />
         </TableRow>
 
     </TableLayout>

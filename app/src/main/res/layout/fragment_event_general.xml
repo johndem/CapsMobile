@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context="csd.jt.capsmobile.EventGeneralFragment"
-    android:background="#ffe8d5">
+    tools:context="csd.jt.capsmobile.EventGeneralFragment">
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,8 +17,8 @@
         android:textStyle="bold"
         android:layout_marginBottom="10dp"
         android:textSize="20dp"
-        android:textColor="#FF9639"
-        />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#31D100" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -34,17 +33,13 @@
                 android:layout_height="wrap_content"
                 android:text="Category:     "
                 android:id="@+id/tvCat"
-                android:textStyle="bold"
-                android:textColor="#ffc18b"
-                />
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/eventCatTv"
-                android:layout_marginBottom="10dp"
-                android:textColor="#FF9639"
-                />
+                android:layout_marginBottom="10dp" />
 
         </TableRow>
 
@@ -58,7 +53,6 @@
                 android:text="Area:     "
                 android:id="@+id/tvAreaShow"
                 android:textStyle="bold"
-                android:textColor="#ffc18b"
 
                 />
 
@@ -66,9 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/eventAreaTv"
-                android:layout_marginBottom="10dp"
-                android:textColor="#FF9639"
-                />
+                android:layout_marginBottom="10dp" />
         </TableRow>
 
         <TableRow
@@ -81,7 +73,6 @@
                 android:text="Date:     "
                 android:id="@+id/tvDateShow"
                 android:textStyle="bold"
-                android:textColor="#ffc18b"
 
                 />
 
@@ -89,9 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/eventDateTv"
-                android:layout_marginBottom="15dp"
-                android:textColor="#FF9639"
-                />
+                android:layout_marginBottom="15dp" />
         </TableRow>
 
     </TableLayout>
@@ -99,37 +88,47 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/eventSdescTv"
-        android:textColor="#FF9639"
-        />
+        android:id="@+id/eventSdescTv" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Apply for:"
         android:id="@+id/applyTv"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp" />
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/applySpin"
         android:spinnerMode="dropdown"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:layout_marginTop="5dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Apply"
         android:id="@+id/applyBtn"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:background="#31D100" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Applicants:"
         android:id="@+id/applicantTv"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#31D100" />
 
     <ListView
         android:layout_width="match_parent"

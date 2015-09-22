@@ -9,8 +9,7 @@
         android:id="@+id/content"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#31D100">
+        android:layout_height="match_parent">
     </LinearLayout>
 
     <ListView
