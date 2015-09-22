@@ -163,31 +163,28 @@ public class EventActivity extends BaseActivity {
                 String id = myPrefs.getString("userId", null);
                 String role = myPrefs.getString("userRole",null);
 
-                if (role.equals("vol")) {
-                    TextView applyTv = (TextView) view.findViewById(R.id.applyTv);
-                    applyTv.setVisibility(view.VISIBLE);
-//                    Spinner applySpin = (Spinner) findViewById(R.id.applySpin);
+                if (role != null) {
+                    if (role.equals("vol")) {
+                        TextView applyTv = (TextView) view.findViewById(R.id.applyTv);
+                        applyTv.setVisibility(view.VISIBLE);
 
-                    new GetSkillData("http://10.0.2.2/CAPS/android/get-event-skills.php", (Spinner) findViewById(R.id.applySpin)).execute();
+                        new GetSkillData("http://10.0.2.2/CAPS/android/get-event-skills.php", (Spinner) findViewById(R.id.applySpin)).execute();
 
-//                    applySpin.setVisibility(view.VISIBLE);
+                        Button applyBtn = (Button) view.findViewById(R.id.applyBtn);
+                        applyBtn.setVisibility(view.VISIBLE);
+                    }
+                    else if (role.equals("org")) {
+                        TextView applicantsTv = (TextView) view.findViewById(R.id.applicantTv);
+                        applicantsTv.setVisibility(view.VISIBLE);
+                        ListView applicantLv = (ListView) view.findViewById(R.id.applicantLv);
+                        applicantLv.setVisibility(view.VISIBLE);
 
-                    Button applyBtn = (Button) findViewById(R.id.applyBtn);
-                    applyBtn.setVisibility(view.VISIBLE);
+
+                        GetApplicantData app = new GetApplicantData(view);
+                        app.execute();
+
+                    }
                 }
-                else if (role.equals("org")) {
-                    TextView applicantsTv = (TextView) view.findViewById(R.id.applicantTv);
-                    applicantsTv.setVisibility(view.VISIBLE);
-                    ListView applicantLv = (ListView) view.findViewById(R.id.applicantLv);
-                    applicantLv.setVisibility(view.VISIBLE);
-
-
-                    GetApplicantData app = new GetApplicantData(view);
-                    app.execute();
-
-                }
-
-
 
             }
             else {
