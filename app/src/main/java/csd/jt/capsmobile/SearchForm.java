@@ -90,7 +90,7 @@ public class SearchForm extends BaseActivity {
                 if (!tvDate.getText().toString().isEmpty()) { intent.putExtra("date", tvDate.getText().toString()); flag =true; }
 
                 if (flag == false) {
-                    Toast.makeText(SearchForm.this, "Please pick at least one option!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SearchForm.this, "Πρέπει να επιλέξετε τουλάχιστον ένα φίλτρο!", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     //Toast.makeText(SearchForm.this, "Would start activity/10", Toast.LENGTH_SHORT).show();
@@ -141,7 +141,7 @@ public class SearchForm extends BaseActivity {
             this.url = url;
             this.spinner = spinner;
             dataList = new ArrayList<>();
-            dataList.add("Select One");
+            dataList.add("Επιλέξτε ένα");
         }
 
 

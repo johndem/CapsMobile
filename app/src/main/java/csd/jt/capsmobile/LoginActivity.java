@@ -52,7 +52,7 @@ public class LoginActivity extends BaseActivity {
                 String pass = password.getText().toString();
 
                 if (user.equals("") || pass.equals(""))
-                    Toast.makeText(LoginActivity.this, "Please fill both fields!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Παρακαλούμε συμπληρώστε και τα δύο πεδία!", Toast.LENGTH_SHORT).show();
                 else {
                     // Calling async task to get json
                     new GetData().execute(user, pass);
@@ -71,7 +71,7 @@ public class LoginActivity extends BaseActivity {
             super.onPreExecute();
             // Showing progress dialog
             pDialog = new ProgressDialog(LoginActivity.this);
-            pDialog.setMessage("Please wait...");
+            pDialog.setMessage("Παρακαλούμε περιμένετε...");
             pDialog.setCancelable(false);
             pDialog.show();
 
@@ -108,7 +108,7 @@ public class LoginActivity extends BaseActivity {
             }
 
             if (userId.equals("0")) {
-                response = "Your credentials don't match!";
+                response = "Τα στοιχεία σας δεν είναι σωστά!";
             }
             else {
                 response = "Ok";

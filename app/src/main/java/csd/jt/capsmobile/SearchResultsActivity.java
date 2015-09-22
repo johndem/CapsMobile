@@ -153,7 +153,7 @@ public class SearchResultsActivity extends ListActivity {
 
             //Showing progress dialog
             pDialog = new ProgressDialog(act);
-            pDialog.setMessage("Please wait...");
+            pDialog.setMessage("Παρακαλούμε περιμένετε...");
             pDialog.setCancelable(false);
             pDialog.show();
 
@@ -251,7 +251,7 @@ public class SearchResultsActivity extends ListActivity {
              * Updating parsed JSON data into ListView
              * */
             if (dataList.isEmpty()) {
-                Toast.makeText(act, "No events found", Toast.LENGTH_LONG).show();
+                Toast.makeText(act, "Δε βρέθηκαν δράσεις", Toast.LENGTH_LONG).show();
             }
             else {
                 ListAdapter adapter = new SimpleAdapter(

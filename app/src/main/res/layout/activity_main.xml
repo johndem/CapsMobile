@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/t1"
+                android:src="@drawable/volunteerism"
                 android:id="@+id/ibEvent"
                 />
 

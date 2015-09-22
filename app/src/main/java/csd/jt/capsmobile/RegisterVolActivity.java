@@ -46,14 +46,14 @@ public class RegisterVolActivity extends BaseActivity {
                 String b = birthday.getText().toString();
 
                 if (fname.equals("") || lname.equals("") || user.equals("") || pass.equals("") || cpass.equals("") || e.equals("") || b.equals(""))
-                    Toast.makeText(RegisterVolActivity.this, "Please fill all fields!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterVolActivity.this, "Παρακαλούμε συμπληρώστε όλα τα πεδία!", Toast.LENGTH_SHORT).show();
                 else if (pass.length() < 10) {
-                    Toast.makeText(RegisterVolActivity.this, "Password must be at least 10 characters long!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterVolActivity.this, "Ο κωδικός πρέπει να είναι τουλάχιστον 10 χαρακτήρες!", Toast.LENGTH_SHORT).show();
                 }
                 else if (!pass.equals(cpass)) {
                     Log.d("Password: ", "> " + pass);
                     Log.d("C Password: ", "> " + cpass);
-                    Toast.makeText(RegisterVolActivity.this, "Password fields don't match!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterVolActivity.this, "Τα πεδία password δεν ταιριάζουν!", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     // Calling async task to get json
@@ -74,7 +74,7 @@ public class RegisterVolActivity extends BaseActivity {
             super.onPreExecute();
             // Showing progress dialog
             pDialog = new ProgressDialog(RegisterVolActivity.this);
-            pDialog.setMessage("Please wait...");
+            pDialog.setMessage("Παρακαλούμε περιμένετε...");
             pDialog.setCancelable(false);
             pDialog.show();
 
@@ -108,16 +108,16 @@ public class RegisterVolActivity extends BaseActivity {
             String response = null;
 
             if (jsonStr.equals("\"0\"")) {
-                response = "There was a problem signing up!";
+                response = "Υπήρξε πρόβλημα κατά την εγγραφή!";
             }
             else if (jsonStr.equals("\"-1\"")) {
-                response = "Username already in use!";
+                response = "Αυτο username δεν είναι διαθέσιμο!";
             }
             else if (jsonStr.equals("\"-2\"")) {
-                response = "Email already in use!";
+                response = "Αυτό το email είναι ήδη σε χρήση!";
             }
             else {
-                response = "Account successfully created!";
+                response = "Ο λογαριασμός σας δημιουργήθηκε επιτυχώς!";
             }
 
             return response;

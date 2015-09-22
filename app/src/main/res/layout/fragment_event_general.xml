@@ -31,7 +31,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Category:     "
+                android:text="Κατηγορία:     "
                 android:id="@+id/tvCat"
                 android:textStyle="bold" />
 
@@ -50,7 +50,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Area:     "
+                android:text="Περιοχή: "
                 android:id="@+id/tvAreaShow"
                 android:textStyle="bold"
 
@@ -70,7 +70,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date:     "
+                android:text="Ημ/νία: "
                 android:id="@+id/tvDateShow"
                 android:textStyle="bold"
 
@@ -93,7 +93,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Apply for:"
+        android:text="Δηλώστε συμμετοχή για:"
         android:id="@+id/applyTv"
         android:visibility="gone"
         android:textSize="20dp"
@@ -111,7 +111,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Apply"
+        android:text="δηλωση"
         android:id="@+id/applyBtn"
         android:visibility="gone"
         android:layout_gravity="center_horizontal"
@@ -121,7 +121,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Applicants:"
+        android:text="Αιτούντες:"
         android:id="@+id/applicantTv"
         android:visibility="gone"
         android:layout_marginTop="5dp"

@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Title:    "
+            android:text="Τίτλος:      "
             android:textStyle="bold" />
 
         <TextView
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Email:    "
+            android:text="Email:        "
             android:textStyle="bold" />
 
         <TextView
@@ -70,7 +70,7 @@
                 android:id="@+id/desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description:"
+                android:text="Περιγραφή:"
                 android:textStyle="bold" />
 
             <TextView

@@ -51,7 +51,7 @@ public class EventActivity extends BaseActivity {
         setContentView(R.layout.activity_event);
 
         pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Please wait...");
+        pDialog.setMessage("Παρακαλούμε περιμένετε...");
         pDialog.setCancelable(false);
 
         // BEGIN_INCLUDE (setup_viewpager)
@@ -120,8 +120,8 @@ public class EventActivity extends BaseActivity {
          */
         @Override
         public CharSequence getPageTitle(int position) {
-            if (position == 0) return "General";
-            else return "Details";
+            if (position == 0) return "Γενικά";
+            else return "Λεπτομέρειες";
         }
         // END_INCLUDE (pageradapter_getpagetitle)
 
@@ -319,7 +319,7 @@ public class EventActivity extends BaseActivity {
                             String skill = c.getString(TAG_SKILL);
                             String selected = c.getString(TAG_SELECTED);
 
-                            String apply = firstname + " " + lastname + " has applied for " + skill;
+                            String apply = "Ο/Η " + firstname + " " + lastname + " δήλωσε συμμετοχή για " + skill;
 
 
                             // tmp hashmap for single contact
@@ -383,7 +383,7 @@ public class EventActivity extends BaseActivity {
                 this.url = url;
                 this.spinner = spinner;
                 dataList = new ArrayList<>();
-                dataList.add("Select One");
+                dataList.add("Επιλέξτε ένα");
             }
 
             @Override
@@ -393,7 +393,7 @@ public class EventActivity extends BaseActivity {
 
                 //Showing progress dialog
                 pDialog = new ProgressDialog(act);
-                pDialog.setMessage("Fetching data from database");
+                pDialog.setMessage("Ανάκτηση δεδομένων");
                 pDialog.setCancelable(false);
                 pDialog.show();
 

@@ -37,7 +37,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Category: "
+                android:text="Κατηγορία: "
                 android:id="@+id/tvCat"
                 android:textStyle="bold"
                 android:textSize="10dp"
@@ -62,7 +62,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Where: "
+                android:text="Τοποθεσία: "
                 android:id="@+id/tvAreaShow"
                 android:textStyle="bold"
                 android:textSize="10dp"
@@ -87,7 +87,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="When: "
+                android:text="Ημ/νία: "
                 android:id="@+id/tvDateShow"
                 android:textStyle="bold"
                 android:textSize="10dp"
@@ -109,7 +109,7 @@
         android:paddingBottom="2dip"
         android:paddingTop="6dip"
         android:textSize="10sp"
-        android:text="Click for details >>"
+        android:text="Click για περισσότερα >>"
         android:textColor="#31D100"/>
 
 </LinearLayout>

@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Volunteer Registration Form"
+            android:text="Φόρμα Εγγραφής Εθελοντή"
             android:id="@+id/textView6"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5dp"/>
@@ -27,7 +27,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="First name:"
+        android:text="Όνομα:"
         android:id="@+id/firstnameTv" />
 
     <EditText
@@ -40,7 +40,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Last name:"
+        android:text="Επώνυμο:"
         android:id="@+id/lastnameTv" />
 
     <EditText
@@ -103,7 +103,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Birthday:"
+        android:text="Ημ/νία Γέννησης:"
         android:id="@+id/birthdayTv" />
 
     <EditText
@@ -116,7 +116,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="εγγραφη"
         android:id="@+id/registerBtn"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"

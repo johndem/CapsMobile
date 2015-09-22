@@ -26,8 +26,8 @@ public class BaseActivity extends AppCompatActivity {
 
     // Navigation Drawer variables
     private ActionBarDrawerToggle mDrawerToggle;
-    private String[] navArrayVisitor = {"Home", "Search", "Login", "Sign up"};
-    private String[] navArrayUser = {"Home", "My Profile", "Search", "Sign out"};
+    private String[] navArrayVisitor = {"Αρχική", "Αναζήτηση", "Είσοδος", "Εγγραφή", "Έξοδος", "Σχετικά"};
+    private String[] navArrayUser = {"Αρχική", "Λογαριασμός", "Αναζήτηση", "Αποσύνδεση", "Έξοδος", "Σχετικά"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +109,12 @@ public class BaseActivity extends AppCompatActivity {
                         Intent intent = new Intent(BaseActivity.this, RegisterVolActivity.class);
                         startActivity(intent);
                     }
+                    if (position == 4) {
+
+                    }
+                    if (position == 5) {
+
+                    }
                 }
             });
         }
@@ -143,6 +149,12 @@ public class BaseActivity extends AppCompatActivity {
                         editor.commit();
                         Intent intent = new Intent(BaseActivity.this, MainActivity.class);
                         startActivity(intent);
+                    }
+                    if (position == 4) {
+
+                    }
+                    if (position == 5) {
+
                     }
                 }
             });

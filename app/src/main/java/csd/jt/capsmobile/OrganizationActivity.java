@@ -43,7 +43,7 @@ public class OrganizationActivity extends BaseActivity {
         setContentView(R.layout.activity_organization);
 
         pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Please wait...");
+        pDialog.setMessage("Παρακαλούμε περιμένετε...");
         pDialog.setCancelable(false);
         // BEGIN_INCLUDE (setup_viewpager)
         // Get the ViewPager and set it's PagerAdapter so that it can display items
@@ -114,9 +114,9 @@ public class OrganizationActivity extends BaseActivity {
          */
         @Override
         public CharSequence getPageTitle(int position) {
-            if (position == 0) return "Profile";
-            else if (position == 1) return "History";
-            else return "Notifications";
+            if (position == 0) return "ΠΡΟΦΙΛ";
+            else if (position == 1) return "ΙΣΤΟΡΙΚΟ";
+            else return "ΕΙΔΟΠΟΙΗΣΕΙΣ";
         }
         // END_INCLUDE (pageradapter_getpagetitle)
 
