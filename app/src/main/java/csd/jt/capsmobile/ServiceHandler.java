@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -59,7 +60,7 @@ public class ServiceHandler {
 
 
             URL link = new URL(url);
-            URLConnection conn = link.openConnection();
+            HttpURLConnection conn = (HttpURLConnection) link.openConnection();
 
             conn.setDoOutput(true);
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
