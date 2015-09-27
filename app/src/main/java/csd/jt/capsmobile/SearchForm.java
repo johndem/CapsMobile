@@ -39,6 +39,8 @@ public class SearchForm extends BaseActivity {
     private static final String TAG_RESULTS = "results";
     AlertDialog.Builder builder1;
 
+    private String uri = "http://idematis.webpages.auth.gr";
+
     public Activity act = this;
     JSONArray active = null;
 
@@ -58,10 +60,10 @@ public class SearchForm extends BaseActivity {
                 });
 
         //http://10.0.3.2/CAPS
-        new GetData("http://10.0.2.2/CAPS/android/get-categories.php",(Spinner) findViewById(R.id.spCategory)).execute();
-        new GetData("http://10.0.2.2/CAPS/android/get-areas.php", (Spinner) findViewById(R.id.spArea)).execute();
-        new GetData("http://10.0.2.2/CAPS/android/get-agegroups.php",(Spinner) findViewById(R.id.spAgegroup)).execute();
-        new GetData("http://10.0.2.2/CAPS/android/get-skills.php", (Spinner) findViewById(R.id.spSkills)).execute();
+        new GetData(uri + "/CAPS/android/get-categories.php",(Spinner) findViewById(R.id.spCategory)).execute();
+        new GetData(uri + "/CAPS/android/get-areas.php", (Spinner) findViewById(R.id.spArea)).execute();
+        new GetData(uri + "/CAPS/android/get-agegroups.php",(Spinner) findViewById(R.id.spAgegroup)).execute();
+        new GetData(uri + "/CAPS/android/get-skills.php", (Spinner) findViewById(R.id.spSkills)).execute();
 
         Button btnSearch = (Button) findViewById(R.id.btnSearch);
 

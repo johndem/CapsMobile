@@ -39,6 +39,8 @@ public class EventActivity extends BaseActivity {
     Activity act = this;
     JSONArray active = null;
 
+    private String uri = "http://idematis.webpages.auth.gr";
+
     private ProgressDialog pDialog;
 
     private static final String TAG_RESULTS = "results";
@@ -120,8 +122,8 @@ public class EventActivity extends BaseActivity {
          */
         @Override
         public CharSequence getPageTitle(int position) {
-            if (position == 0) return "Γενικά";
-            else return "Λεπτομέρειες";
+            if (position == 0) return "Γενικα";
+            else return "Λεπτομερειες";
         }
         // END_INCLUDE (pageradapter_getpagetitle)
 
@@ -168,7 +170,7 @@ public class EventActivity extends BaseActivity {
                         TextView applyTv = (TextView) view.findViewById(R.id.applyTv);
                         applyTv.setVisibility(view.VISIBLE);
 
-                        new GetSkillData("http://10.0.2.2/CAPS/android/get-event-skills.php", (Spinner) findViewById(R.id.applySpin)).execute();
+                        new GetSkillData(uri + "/CAPS/android/get-event-skills.php", (Spinner) findViewById(R.id.applySpin)).execute();
 
                         Button applyBtn = (Button) view.findViewById(R.id.applyBtn);
                         applyBtn.setVisibility(view.VISIBLE);
@@ -261,7 +263,7 @@ public class EventActivity extends BaseActivity {
             private static final String TAG_SELECTED = "selected";
 
             ArrayList<HashMap<String, String>> dataList;
-            private String url = "http://10.0.2.2/CAPS/android/find-applicants.php";
+            private String url = uri + "/CAPS/android/find-applicants.php";
 
             View v;
             JSONArray applicants = null;

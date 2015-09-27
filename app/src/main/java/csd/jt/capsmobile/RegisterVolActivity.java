@@ -20,6 +20,8 @@ public class RegisterVolActivity extends BaseActivity {
     private EditText firstname, lastname, username, password, cpassword, email, birthday;
     private Button regBtn;
 
+    private String uri = "http://idematis.webpages.auth.gr";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +87,7 @@ public class RegisterVolActivity extends BaseActivity {
             // Creating service handler class instance
             ServiceHandler sh = new ServiceHandler();
 
-            String url = "http://10.0.2.2/CAPS/android/register-vol.php";
+            String url = uri + "/CAPS/android/register-vol.php";
             HashMap<String, String> params = new HashMap<>();
             String fname = arg[0];
             String lname = arg[1];

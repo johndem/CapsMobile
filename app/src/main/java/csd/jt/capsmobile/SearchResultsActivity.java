@@ -37,9 +37,10 @@ public class SearchResultsActivity extends ListActivity {
     public String cat = "";
     HashMap<String, String> params = new HashMap<>();
 
+    private String uri = "http://idematis.webpages.auth.gr";
 
     // URL to get contacts JSON
-    private static String url = "http://10.0.2.2/CAPS/android/find-category.php";//http://10.0.3.2/CAPS/android/find-category.php";
+    private String url = uri + "/CAPS/android/find-category.php";//http://10.0.3.2/CAPS/android/find-category.php";
 
     // JSON Node names
     private static final String TAG_RESULTS = "results";

@@ -33,6 +33,8 @@ public class LoginActivity extends BaseActivity {
     private Button logBtn;
     SharedPreferences sharedpreferences;
 
+    private String uri = "http://idematis.webpages.auth.gr";    // http://10.0.2.2
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +84,7 @@ public class LoginActivity extends BaseActivity {
             // Creating service handler class instance
             ServiceHandler sh = new ServiceHandler();
 
-            String url = "http://10.0.2.2/CAPS/android/verify-user.php";
+            String url = uri + "/CAPS/android/verify-user.php";
             HashMap<String, String> params = new HashMap<>();
             String user = arg[0];
             String pass = arg[1];

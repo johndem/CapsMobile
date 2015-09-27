@@ -33,6 +33,8 @@ public class VolunteerActivity extends BaseActivity {
     private ViewPager mViewPager;
     Activity act = this;
 
+    private String uri = "http://idematis.webpages.auth.gr";
+
     private ProgressDialog pDialog;
 
     @Override
@@ -185,7 +187,7 @@ public class VolunteerActivity extends BaseActivity {
         private static final String TAG_POINTS = "points";
 
         // URL to get contacts JSON
-        private String url = "http://10.0.2.2/CAPS/android/find-vol.php";
+        private String url = uri + "/CAPS/android/find-vol.php";
 
         HashMap<String, String> dataList;
         // contacts JSONArray
@@ -302,8 +304,8 @@ public class VolunteerActivity extends BaseActivity {
 
     private class GetHistoryData extends AsyncTask<Void, Void, Void> {
 
-        private String urlActive = "http://10.0.2.2/CAPS/android/find-vol-active.php";
-        private String urlCompleted = "http://10.0.2.2/CAPS/android/find-vol-completed.php";
+        private String urlActive = uri + "/CAPS/android/find-vol-active.php";
+        private String urlCompleted = uri + "/CAPS/android/find-vol-completed.php";
 
         private static final String TAG_ACTIVE = "active";
         private static final String TAG_aID = "id";
@@ -642,7 +644,7 @@ public class VolunteerActivity extends BaseActivity {
         private static final String TAG_IMAGE3 = "image3";
 
         ArrayList<HashMap<String, String>> dataList;
-        private String url = "http://10.0.2.2/CAPS/android/get-notifications.php";
+        private String url = uri + "/CAPS/android/get-notifications.php";
 
         View v;
         JSONArray notifications = null;
