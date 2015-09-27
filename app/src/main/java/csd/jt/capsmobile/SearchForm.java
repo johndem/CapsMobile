@@ -39,9 +39,6 @@ public class SearchForm extends BaseActivity {
     private static final String TAG_RESULTS = "results";
     AlertDialog.Builder builder1;
 
-
-
-
     public Activity act = this;
     JSONArray active = null;
 
