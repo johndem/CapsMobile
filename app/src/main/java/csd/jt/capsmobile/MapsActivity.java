@@ -56,7 +56,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         // create marker
-        MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).title("Hello Maps");
+        MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).title("Δράση");
         map.addMarker(marker);
 
         LatLng ll = new LatLng(latitude, longitude);
