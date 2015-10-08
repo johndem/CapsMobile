@@ -33,7 +33,7 @@ public class OrganizationActivity extends BaseActivity {
     private ViewPager mViewPager;
     Activity act = this;
 
-    private String uri = "http://idematis.webpages.auth.gr";
+    private String uri = "http://10.0.2.2"; //"http://idematis.webpages.auth.gr";
 
     private ProgressDialog pDialog;
 
@@ -297,6 +297,7 @@ public class OrganizationActivity extends BaseActivity {
 
         private static final String TAG_ACTIVE = "active";
         private static final String TAG_aID = "id";
+        private static final String TAG_aPOSTER = "poster";
         private static final String TAG_aTITLE = "title";
         private static final String TAG_aCATEGORY = "category";
         private static final String TAG_aADDRESS = "address";
@@ -315,6 +316,7 @@ public class OrganizationActivity extends BaseActivity {
 
         private static final String TAG_COMPLETED = "completed";
         private static final String TAG_cID = "id";
+        private static final String TAG_cPOSTER = "poster";
         private static final String TAG_cTITLE = "title";
         private static final String TAG_cCATEGORY = "category";
         private static final String TAG_cADDRESS = "address";
@@ -380,6 +382,7 @@ public class OrganizationActivity extends BaseActivity {
                         JSONObject c = active.getJSONObject(i);
 
                         String event_id = c.getString(TAG_aID);
+                        String poster = c.getString(TAG_aPOSTER);
                         String title = c.getString(TAG_aTITLE);
                         String category = c.getString(TAG_aCATEGORY);
                         String address = c.getString(TAG_aADDRESS);
@@ -402,6 +405,7 @@ public class OrganizationActivity extends BaseActivity {
 
                         // adding each child node to HashMap key => value
                         row.put(TAG_aID, event_id);
+                        row.put(TAG_aPOSTER, poster);
                         row.put(TAG_aTITLE, title);
                         row.put(TAG_aCATEGORY, category);
                         row.put(TAG_aADDRESS, address);
@@ -446,6 +450,7 @@ public class OrganizationActivity extends BaseActivity {
                         JSONObject c = active.getJSONObject(i);
 
                         String event_id = c.getString(TAG_cID);
+                        String poster = c.getString(TAG_cPOSTER);
                         String title = c.getString(TAG_cTITLE);
                         String category = c.getString(TAG_cCATEGORY);
                         String address = c.getString(TAG_cADDRESS);
@@ -468,6 +473,7 @@ public class OrganizationActivity extends BaseActivity {
 
                         // adding each child node to HashMap key => value
                         row.put(TAG_cID, event_id);
+                        row.put(TAG_cPOSTER, poster);
                         row.put(TAG_cTITLE, title);
                         row.put(TAG_cCATEGORY, category);
                         row.put(TAG_cADDRESS, address);
@@ -559,6 +565,7 @@ public class OrganizationActivity extends BaseActivity {
                 for (HashMap<String, String> listItem : dataListA) {
                     if (listItem.get(TAG_aTITLE).equals(title)) {
                         bundle.putString(TAG_aID, listItem.get(TAG_aID));
+                        bundle.putString(TAG_aPOSTER, listItem.get(TAG_aPOSTER));
                         bundle.putString(TAG_aTITLE, title);
                         bundle.putString(TAG_aCATEGORY, listItem.get(TAG_aCATEGORY));
                         bundle.putString(TAG_aADDRESS, listItem.get(TAG_aADDRESS));
@@ -581,6 +588,7 @@ public class OrganizationActivity extends BaseActivity {
                 for (HashMap<String, String> listItem : dataListC) {
                     if (listItem.get(TAG_cTITLE).equals(title)) {
                         bundle.putString(TAG_cID, listItem.get(TAG_cID));
+                        bundle.putString(TAG_cPOSTER, listItem.get(TAG_cPOSTER));
                         bundle.putString(TAG_cTITLE, title);
                         bundle.putString(TAG_cCATEGORY, listItem.get(TAG_cCATEGORY));
                         bundle.putString(TAG_cADDRESS, listItem.get(TAG_cADDRESS));
@@ -616,6 +624,7 @@ public class OrganizationActivity extends BaseActivity {
         private static final String TAG_DATE = "date";
         private static final String TAG_TITLE = "title";
         private static final String TAG_ID = "id";
+        private static final String TAG_POSTER = "poster";
         private static final String TAG_CATEGORY = "category";
         private static final String TAG_ADDRESS = "address";
         private static final String TAG_STREET = "street";
@@ -686,6 +695,7 @@ public class OrganizationActivity extends BaseActivity {
                         String title = c.getString(TAG_TITLE);
                         String date = c.getString(TAG_DATE);
                         String event_id = c.getString(TAG_ID);
+                        String poster = c.getString(TAG_POSTER);
                         String category = c.getString(TAG_CATEGORY);
                         String address = c.getString(TAG_ADDRESS);
                         String street = c.getString(TAG_STREET);
@@ -710,6 +720,7 @@ public class OrganizationActivity extends BaseActivity {
                         row.put(TAG_TITLE, title);
                         row.put(TAG_DATE, date);
                         row.put(TAG_ID, event_id);
+                        row.put(TAG_POSTER, poster);
                         row.put(TAG_CATEGORY, category);
                         row.put(TAG_ADDRESS, address);
                         row.put(TAG_STREET, street);
@@ -781,6 +792,7 @@ public class OrganizationActivity extends BaseActivity {
             for (HashMap<String, String> listItem : dataList) {
                 if (listItem.get(TAG_TITLE).equals(title)) {
                     bundle.putString(TAG_ID, listItem.get(TAG_ID));
+                    bundle.putString(TAG_POSTER, listItem.get(TAG_POSTER));
                     bundle.putString(TAG_TITLE, title);
                     bundle.putString(TAG_CATEGORY, listItem.get(TAG_CATEGORY));
                     bundle.putString(TAG_ADDRESS, listItem.get(TAG_ADDRESS));

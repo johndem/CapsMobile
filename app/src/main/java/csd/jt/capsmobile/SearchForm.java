@@ -39,7 +39,7 @@ public class SearchForm extends BaseActivity {
     private static final String TAG_RESULTS = "results";
     AlertDialog.Builder builder1;
 
-    private String uri = "http://idematis.webpages.auth.gr";
+    private String uri = "http://10.0.2.2"; //"http://idematis.webpages.auth.gr";
 
     public Activity act = this;
     JSONArray active = null;

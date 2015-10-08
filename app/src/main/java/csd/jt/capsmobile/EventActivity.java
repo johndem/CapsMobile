@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,13 +40,16 @@ public class EventActivity extends BaseActivity {
     Activity act = this;
     JSONArray active = null;
 
-    private String uri = "http://idematis.webpages.auth.gr";
+    private String uri = "http://10.0.2.2"; //"http://idematis.webpages.auth.gr";
 
     private ProgressDialog pDialog;
 
     private static final String TAG_RESULTS = "results";
     private static final String TAG_TITLE = "title";
     private static final String TAG_VALUE = "value";
+
+    private boolean hasApplied = false;
+    private String appliedSkill;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,8 +146,10 @@ public class EventActivity extends BaseActivity {
                         container, false);
 
                 Bundle extras = act.getIntent().getExtras();
-                String title = null, category = null, area = null, date = null, desc = null;
+                String event_id = null, poster_id = null, title = null, category = null, area = null, date = null, desc = null;
                 if (extras != null) {
+                    event_id = extras.getString("id");
+                    poster_id = extras.getString("poster");
                     title = extras.getString("title");
                     category = extras.getString("category");
                     area = extras.getString("area");
@@ -167,24 +173,21 @@ public class EventActivity extends BaseActivity {
 
                 if (role != null) {
                     if (role.equals("vol")) {
-                        TextView applyTv = (TextView) view.findViewById(R.id.applyTv);
-                        applyTv.setVisibility(view.VISIBLE);
 
-                        new GetSkillData(uri + "/CAPS/android/get-event-skills.php", (Spinner) findViewById(R.id.applySpin)).execute();
+                        new CheckApply(view).execute(id, event_id);
 
-                        Button applyBtn = (Button) view.findViewById(R.id.applyBtn);
-                        applyBtn.setVisibility(view.VISIBLE);
                     }
                     else if (role.equals("org")) {
-                        TextView applicantsTv = (TextView) view.findViewById(R.id.applicantTv);
-                        applicantsTv.setVisibility(view.VISIBLE);
-                        ListView applicantLv = (ListView) view.findViewById(R.id.applicantLv);
-                        applicantLv.setVisibility(view.VISIBLE);
+                        if (poster_id.equals(id)) {
+                            TextView applicantsTv = (TextView) view.findViewById(R.id.applicantTv);
+                            applicantsTv.setVisibility(view.VISIBLE);
+                            ListView applicantLv = (ListView) view.findViewById(R.id.applicantLv);
+                            applicantLv.setVisibility(view.VISIBLE);
 
 
-                        GetApplicantData app = new GetApplicantData(view);
-                        app.execute();
-
+                            GetApplicantData app = new GetApplicantData(view);
+                            app.execute();
+                        }
                     }
                 }
 
@@ -250,6 +253,253 @@ public class EventActivity extends BaseActivity {
         }
 
 
+        private void setEventApplication(View view) {
+            TextView applyTv = (TextView) view.findViewById(R.id.applyTv);
+            Button applyBtn = (Button) view.findViewById(R.id.applyBtn);
+
+            if (hasApplied) {
+                applyTv.setText("Έχετε δηλώσει συμμετοχή για " + appliedSkill);
+
+                applyBtn.setText("ΑΚΥΡΩΣΗ");
+                applyBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SharedPreferences tempPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
+                        String vol_id = tempPrefs.getString("userId", null);
+
+                        Bundle extra = act.getIntent().getExtras();
+                        String event_id = null;
+                        if (extra != null)
+                            event_id = extra.getString("id");
+
+                        new CancelApply().execute(vol_id, event_id);
+
+                    }
+                });
+            }
+            else {
+
+                new GetSkillData(uri + "/CAPS/android/get-event-skills.php", (Spinner) findViewById(R.id.applySpin)).execute();
+
+                applyBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Spinner applySpin = (Spinner) findViewById(R.id.applySpin);
+                        if (applySpin.getSelectedItemPosition() > 0) {
+                            SharedPreferences tempPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
+                            String vol_id = tempPrefs.getString("userId", null);
+
+                            Bundle extra = act.getIntent().getExtras();
+                            String event_id = null;
+                            if (extra != null)
+                                event_id = extra.getString("id");
+
+                            // Calling async task to get json
+                            new Apply().execute(event_id, (String) applySpin.getSelectedItem(), vol_id);
+                        }
+                        else {
+                            Toast.makeText(EventActivity.this, "Πρέπει να επιλέξετε τουλάχιστον ένα!", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                });
+            }
+
+            applyTv.setVisibility(view.VISIBLE);
+            applyBtn.setVisibility(view.VISIBLE);
+        }
+
+
+        private class CheckApply extends AsyncTask<String, Void, Void> {
+
+            ArrayList<String> dataList;
+
+            private String url = uri + "/CAPS/android/check-applied.php";
+            View v;
+
+            public CheckApply(View view) {
+                dataList = new ArrayList<>();
+                v = view;
+            }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                // Showing progress dialog
+                pDialog.show();
+
+            }
+
+            @Override
+            protected Void doInBackground(String... arg) {
+                // Creating service handler class instance
+                ServiceHandler sh = new ServiceHandler();
+
+                // Building Parameters
+                HashMap<String, String> params = new HashMap<>();
+                String vol_id = arg[0];
+                String event_id = arg[1];
+                params.put("vol_id", vol_id);
+                params.put("event_id", event_id);
+
+                // Making a request to url and getting response
+                String jsonStr = sh.makeServiceCall(url, params);
+
+                Log.d("Response: ", "> " + jsonStr);
+
+                if (jsonStr != null) {
+                    try {
+                        JSONObject jsonObj = new JSONObject(jsonStr);
+
+                        // Getting JSON Array node
+                        active = jsonObj.getJSONArray(TAG_RESULTS);
+
+                        // looping through All Contacts
+                        for (int i = 0; i < active.length(); i++) {
+                            JSONObject c = active.getJSONObject(i);
+
+                            String title = c.getString(TAG_TITLE);
+                            dataList.add(title);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.e("ServiceHandler", "Couldn't get any data from the url");
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                // Dismiss the progress dialog
+                if (pDialog.isShowing())
+                    pDialog.dismiss();
+
+                if (dataList.isEmpty())
+                    hasApplied = false;
+                else {
+                    hasApplied = true;
+                    appliedSkill = dataList.get(0);
+                }
+
+                setEventApplication(v);
+
+            }
+
+        }
+
+
+        private class CancelApply extends AsyncTask<String, Void, Void> {
+
+            private String url = uri + "/CAPS/android/cancel-apply.php";
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                // Showing progress dialog
+                pDialog.show();
+
+            }
+
+            @Override
+            protected Void doInBackground(String... arg) {
+                // Creating service handler class instance
+                ServiceHandler sh = new ServiceHandler();
+
+                // Building Parameters
+                HashMap<String, String> params = new HashMap<>();
+                String vol_id = arg[0];
+                String event_id = arg[1];
+                params.put("vol_id", vol_id);
+                params.put("event_id", event_id);
+
+                // Making a request to url and getting response
+                String jsonStr = sh.makeServiceCall(url, params);
+
+                Log.d("Response: ", "> " + jsonStr);
+
+
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                // Dismiss the progress dialog
+                if (pDialog.isShowing())
+                    pDialog.dismiss();
+
+                recreate();
+
+            }
+
+        }
+
+
+
+        /**
+         * Async task class to get json by making HTTP call
+         */
+        private class Apply extends AsyncTask<String, Void, String> {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                // Showing progress dialog
+                pDialog = new ProgressDialog(EventActivity.this);
+                pDialog.setMessage("Παρακαλούμε περιμένετε...");
+                pDialog.setCancelable(false);
+                pDialog.show();
+
+            }
+
+            @Override
+            protected String doInBackground(String... arg) {
+                // Creating service handler class instance
+                ServiceHandler sh = new ServiceHandler();
+
+                String url = uri + "/CAPS/android/apply.php";
+                HashMap<String, String> params = new HashMap<>();
+                String event_id = arg[0];
+                String skill = arg[1];
+                String vol_id = arg[2];
+                params.put("event_id", event_id);
+                params.put("skill", skill);
+                params.put("vol_id", vol_id);
+
+                String jsonStr = sh.makeServiceCall(url, params);
+
+                Log.d("Response: ", "> " + jsonStr);
+                String response = null;
+
+                if (jsonStr.equals("\"0\"")) {
+                    response = "Υπήρξε πρόβλημα κατά την αίτησή σας!";
+                }
+                else {
+                    response = "Έχετε δηλώσει συμμετοχή!";
+                }
+
+                return response;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+//            super.onPostExecute(result);
+
+                // Dismiss the progress dialog
+                if (pDialog.isShowing())
+                    pDialog.dismiss();
+
+                recreate();
+
+            }
+
+        }
 
         private class GetApplicantData extends AsyncTask<Void, Void, Void> {
 

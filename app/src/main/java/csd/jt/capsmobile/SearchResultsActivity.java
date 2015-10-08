@@ -37,7 +37,7 @@ public class SearchResultsActivity extends ListActivity {
     public String cat = "";
     HashMap<String, String> params = new HashMap<>();
 
-    private String uri = "http://idematis.webpages.auth.gr";
+    private String uri = "http://10.0.2.2"; //"http://idematis.webpages.auth.gr";
 
     // URL to get contacts JSON
     private String url = uri + "/CAPS/android/find-category.php";//http://10.0.3.2/CAPS/android/find-category.php";
@@ -46,7 +46,7 @@ public class SearchResultsActivity extends ListActivity {
     private static final String TAG_RESULTS = "results";
     private static final String TAG_ID = "id";
     private static final String TAG_TITLE = "title";
-    private static final String TAG_CREATOR = "creator";
+    private static final String TAG_POSTER = "poster";
     private static final String TAG_CATEGORY = "category";
     private static final String TAG_ADDRESS = "address";
     private static final String TAG_STREET = "street";
@@ -120,6 +120,7 @@ public class SearchResultsActivity extends ListActivity {
         for (HashMap<String, String> listItem : dataList) {
             if (listItem.get(TAG_TITLE).equals(title)) {
                 bundle.putString(TAG_ID, listItem.get(TAG_ID));
+                bundle.putString(TAG_POSTER, listItem.get(TAG_POSTER));
                 bundle.putString(TAG_TITLE, title);
                 bundle.putString(TAG_CATEGORY, listItem.get(TAG_CATEGORY));
                 bundle.putString(TAG_ADDRESS, listItem.get(TAG_ADDRESS));
@@ -186,7 +187,7 @@ public class SearchResultsActivity extends ListActivity {
 
                         String id = c.getString(TAG_ID);
                         String title = c.getString(TAG_TITLE);
-                        // String creator = c.getString(TAG_CREATOR);
+                        String poster = c.getString(TAG_POSTER);
                         String category = c.getString(TAG_CATEGORY);
                         String address = c.getString(TAG_ADDRESS);
                         String street = c.getString(TAG_STREET);
@@ -209,8 +210,7 @@ public class SearchResultsActivity extends ListActivity {
                         // adding each child node to HashMap key => value
                         row.put(TAG_ID, id);
                         row.put(TAG_TITLE, title);
-                        Log.d("title", title);
-                        //row.put(TAG_CREATOR, creator);
+                        row.put(TAG_POSTER, poster);
                         row.put(TAG_CATEGORY, category);
                         row.put(TAG_ADDRESS, address);
                         row.put(TAG_STREET, street);

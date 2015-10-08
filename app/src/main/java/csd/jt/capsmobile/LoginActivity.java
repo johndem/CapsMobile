@@ -33,7 +33,7 @@ public class LoginActivity extends BaseActivity {
     private Button logBtn;
     SharedPreferences sharedpreferences;
 
-    private String uri = "http://idematis.webpages.auth.gr";    // http://10.0.2.2
+    private String uri = "http://10.0.2.2"; //"http://idematis.webpages.auth.gr";
 
 
     @Override

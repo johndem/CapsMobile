@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
-                intent.putExtra("category", "Healthcare");
+                intent.putExtra("category", "Περίθαλψη");
                 startActivity(intent);
             }
         });
@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
-                intent.putExtra("category", "Animals");
+                intent.putExtra("category", "Ζώα");
                 startActivity(intent);
             }
         });
@@ -54,7 +54,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
-                intent.putExtra("category", "Communities");
+                intent.putExtra("category", "Κοινότητες");
                 startActivity(intent);
             }
         });
@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
-                intent.putExtra("category", "Education");
+                intent.putExtra("category", "Εκπαίδευση");
                 startActivity(intent);
             }
         });
@@ -72,7 +72,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
-                intent.putExtra("category", "Environment");
+                intent.putExtra("category", "Περιβάλλον");
                 startActivity(intent);
             }
         });
@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
-                intent.putExtra("category", "Emergency");
+                intent.putExtra("category", "Έκτακτη Ανάγκη");
                 startActivity(intent);
             }
         });
