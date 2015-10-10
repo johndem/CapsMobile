@@ -8,35 +8,49 @@
     -->
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Οι δράσεις σας:"
+        android:id="@+id/tvHist"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Τρέχοντες δράσεις σας:"
-        android:id="@+id/tvHistActive"
-        android:textStyle="bold"
-        android:textSize="15dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp" />
+        android:gravity="center" >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Τρεχοντες"
+            android:id="@+id/activeBtn"
+            android:background="#31D100"
+            android:layout_marginRight="20dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ολοκληρωμενες"
+            android:id="@+id/completedBtn"
+            android:background="#31D100"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/activelist"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Δράσεις που ολοκληρώσατε:"
-        android:id="@+id/tvHistCompleted"
-        android:textSize="15dp"
-        android:textStyle="bold" />
+        android:visibility="visible" />
 
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/completedlist"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp" />
+        android:visibility="gone" />
 
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -141,6 +143,33 @@ public class VolunteerActivity extends BaseActivity {
 
                 GetHistoryData hist = new GetHistoryData(view);
                 hist.execute();
+
+                final ListView listActive = (ListView) view.findViewById(R.id.activelist);
+                final ListView listCompleted = (ListView) view.findViewById(R.id.completedlist);
+
+                final Button btnA = (Button) view.findViewById(R.id.activeBtn);
+                final Button btnC = (Button) view.findViewById(R.id.completedBtn);
+
+                btnA.setBackgroundColor(Color.GRAY);
+                btnA.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        listCompleted.setVisibility(View.GONE);
+                        listActive.setVisibility(View.VISIBLE);
+                        btnA.setBackgroundColor(Color.GRAY);
+                        btnC.setBackgroundColor(Color.parseColor("#31D100"));
+                    }
+                });
+
+                btnC.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        listActive.setVisibility(View.GONE);
+                        listCompleted.setVisibility(View.VISIBLE);
+                        btnC.setBackgroundColor(Color.GRAY);
+                        btnA.setBackgroundColor(Color.parseColor("#31D100"));
+                    }
+                });
             }
             else {
                 view = act.getLayoutInflater().inflate(R.layout.fragment_vol_notifications,

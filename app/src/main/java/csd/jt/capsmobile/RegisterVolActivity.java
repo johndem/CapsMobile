@@ -20,7 +20,7 @@ public class RegisterVolActivity extends BaseActivity {
     private EditText firstname, lastname, username, password, cpassword, email, birthday;
     private Button regBtn;
 
-    private String uri = "http://idematis.webpages.auth.gr";
+    private String uri = "http://10.0.2.2"; //"http://idematis.webpages.auth.gr";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
