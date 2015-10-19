@@ -37,7 +37,7 @@ public class SearchResultsActivity extends ListActivity {
     public String cat = "";
     HashMap<String, String> params = new HashMap<>();
 
-    private String uri = "http://10.0.2.2"; //"http://idematis.webpages.auth.gr";
+    private String uri = "http://idematis.webpages.auth.gr"; // "http://10.0.2.2"
 
     // URL to get contacts JSON
     private String url = uri + "/CAPS/android/find-category.php";//http://10.0.3.2/CAPS/android/find-category.php";

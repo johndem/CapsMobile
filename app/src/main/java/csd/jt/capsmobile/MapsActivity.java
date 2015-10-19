@@ -37,13 +37,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String zip = intent.getStringExtra("zipcode");
         String area = intent.getStringExtra("area");
 
+        String addToGeocode = address + ", " + str + ", " + zip + ", " + area + ", Thessaloniki";
+
         // latitude and longitude
         double latitude = 0;
         double longitude = 0;
 
         Geocoder gc = new Geocoder(this, Locale.getDefault());
         try {
-            List<Address> list = gc.getFromLocationName("Athens", 1);
+            List<Address> list = gc.getFromLocationName(addToGeocode, 1);
             Address add = null;
             if (!list.isEmpty()) {
                 add = list.get(0);

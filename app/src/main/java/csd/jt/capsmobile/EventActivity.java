@@ -45,7 +45,7 @@ public class EventActivity extends BaseActivity {
     Activity act = this;
     JSONArray active = null;
 
-    private String uri = "http://10.0.2.2"; //"http://idematis.webpages.auth.gr";
+    private String uri = "http://idematis.webpages.auth.gr"; //"http://10.0.2.2"
 
     private ProgressDialog pDialog;
 
@@ -505,6 +505,7 @@ public class EventActivity extends BaseActivity {
                 String jsonStr = sh.makeServiceCall(url, params);
 
                 Log.d("Response: ", "> " + jsonStr);
+                Log.d("SJILL: ", "> " + skill);
                 String response = null;
 
                 if (jsonStr.equals("\"0\"")) {

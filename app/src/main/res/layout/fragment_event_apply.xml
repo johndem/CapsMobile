@@ -9,11 +9,12 @@
         android:text="Δηλώστε συμμετοχή για:"
         android:id="@+id/applyTv"
         android:visibility="gone"
-        android:textSize="20dp"
-        android:textStyle="bold"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="10dp"
+        android:textColor="#31D100"
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
     <Spinner
         android:layout_width="match_parent"
@@ -30,7 +31,7 @@
         android:id="@+id/applyBtn"
         android:visibility="gone"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="20dp"
         android:background="#31D100" />
 
     <TextView
