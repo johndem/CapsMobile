@@ -26,8 +26,8 @@ public class BaseActivity extends AppCompatActivity {
 
     // Navigation Drawer variables
     private ActionBarDrawerToggle mDrawerToggle;
-    private String[] navArrayVisitor = {"Αρχική", "Αναζήτηση", "Είσοδος", "Εγγραφή", "Έξοδος", "Σχετικά"};
-    private String[] navArrayUser = {"Αρχική", "Λογαριασμός", "Αναζήτηση", "Αποσύνδεση", "Έξοδος", "Σχετικά"};
+    private String[] navArrayVisitor = {"Αρχική", "Αναζήτηση", "Είσοδος", "Εγγραφή", "Σχετικά"};
+    private String[] navArrayUser = {"Αρχική", "Λογαριασμός", "Αναζήτηση", "Αποσύνδεση", "Σχετικά"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,9 +112,6 @@ public class BaseActivity extends AppCompatActivity {
                     if (position == 4) {
 
                     }
-                    if (position == 5) {
-
-                    }
                 }
             });
         }
@@ -130,7 +127,7 @@ public class BaseActivity extends AppCompatActivity {
                     }
                     if (position == 1) {
                         SharedPreferences innerPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
-                        String role = innerPrefs.getString("userRole",null);
+                        String role = innerPrefs.getString("userRole", null);
                         Intent intent;
                         if (role.equals("vol"))
                             intent = new Intent(BaseActivity.this, VolunteerActivity.class);
@@ -151,9 +148,6 @@ public class BaseActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                     if (position == 4) {
-
-                    }
-                    if (position == 5) {
 
                     }
                 }
