@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -18,6 +20,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -29,6 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -104,7 +109,7 @@ public class EventActivity extends BaseActivity {
          */
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         /**
@@ -127,7 +132,8 @@ public class EventActivity extends BaseActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             if (position == 0) return "Γενικα";
-            else return "Λεπτομερειες";
+            else if (position == 1) return "Λεπτομερειες";
+            else return "Αιτησεις";
         }
         // END_INCLUDE (pageradapter_getpagetitle)
 
@@ -146,7 +152,7 @@ public class EventActivity extends BaseActivity {
                         container, false);
 
                 Bundle extras = act.getIntent().getExtras();
-                String event_id = null, poster_id = null, title = null, category = null, area = null, date = null, desc = null;
+                String event_id = null, poster_id = null, title = null, category = null, area = null, date = null, desc = null, img = null;
                 if (extras != null) {
                     event_id = extras.getString("id");
                     poster_id = extras.getString("poster");
@@ -155,9 +161,15 @@ public class EventActivity extends BaseActivity {
                     area = extras.getString("area");
                     date = extras.getString("day");
                     desc = extras.getString("sdesc");
+                    img = extras.getString("image1");
                 }
                 TextView titleTv = (TextView) view.findViewById(R.id.eventTitleTv);
                 titleTv.setText(title);
+
+                // show The Image
+                new DownloadImageTask((ImageView) view.findViewById(R.id.eventPic))
+                        .execute(uri + "/CAPS/el/" + img);
+
                 TextView catTv = (TextView) view.findViewById(R.id.eventCatTv);
                 catTv.setText(category);
                 TextView areaTv = (TextView) view.findViewById(R.id.eventAreaTv);
@@ -167,33 +179,9 @@ public class EventActivity extends BaseActivity {
                 TextView descTv = (TextView) view.findViewById(R.id.eventSdescTv);
                 descTv.setText(desc);
 
-                SharedPreferences myPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
-                String id = myPrefs.getString("userId", null);
-                String role = myPrefs.getString("userRole",null);
-
-                if (role != null) {
-                    if (role.equals("vol")) {
-
-                        new CheckApply(view).execute(id, event_id);
-
-                    }
-                    else if (role.equals("org")) {
-                        if (poster_id.equals(id)) {
-                            TextView applicantsTv = (TextView) view.findViewById(R.id.applicantTv);
-                            applicantsTv.setVisibility(view.VISIBLE);
-                            ListView applicantLv = (ListView) view.findViewById(R.id.applicantLv);
-                            applicantLv.setVisibility(view.VISIBLE);
-
-
-                            GetApplicantData app = new GetApplicantData(view);
-                            app.execute();
-                        }
-                    }
-                }
-
             }
-            else {
-                view  = act.getLayoutInflater().inflate(R.layout.fragment_event_details,
+            else if (position == 1) {
+                view = act.getLayoutInflater().inflate(R.layout.fragment_event_details,
                         container, false);
 
                 Bundle extras = act.getIntent().getExtras();
@@ -235,6 +223,48 @@ public class EventActivity extends BaseActivity {
                         startActivity(intent);
                     }
                 });
+
+            }
+            else {
+                view  = act.getLayoutInflater().inflate(R.layout.fragment_event_apply,
+                        container, false);
+
+                Bundle extras = act.getIntent().getExtras();
+                String event_id = null, poster_id = null;
+                if (extras != null) {
+                    event_id = extras.getString("id");
+                    poster_id = extras.getString("poster");
+                }
+
+                SharedPreferences myPrefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
+                String id = myPrefs.getString("userId", null);
+                String role = myPrefs.getString("userRole",null);
+
+                if (role != null) {
+                    if (role.equals("vol")) {
+
+                        new CheckApply(view).execute(id, event_id);
+
+                    }
+                    else if (role.equals("org")) {
+                        if (poster_id.equals(id)) {
+                            TextView applicantsTv = (TextView) view.findViewById(R.id.applicantTv);
+                            applicantsTv.setVisibility(view.VISIBLE);
+                            ListView applicantLv = (ListView) view.findViewById(R.id.applicantLv);
+                            applicantLv.setVisibility(view.VISIBLE);
+
+
+                            GetApplicantData app = new GetApplicantData(view);
+                            app.execute();
+                        }
+                    }
+                }
+                else {
+                    TextView loginApplyTv = (TextView) view.findViewById(R.id.loginApplyTv);
+                    loginApplyTv.setVisibility(view.VISIBLE);
+                }
+
+
             }
             // Add the newly created View to the ViewPager
             container.addView(view);
@@ -719,6 +749,31 @@ public class EventActivity extends BaseActivity {
 
         }
 
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 
 

@@ -1,139 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-   android:id="@+id/general_fragment"
+    android:id="@+id/general_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
     tools:context="csd.jt.capsmobile.EventGeneralFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/eventTitleTv"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:textStyle="bold"
-        android:layout_marginBottom="10dp"
-        android:textSize="20dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#31D100" />
-
-    <TableLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:id="@+id/eventScrollView" >
 
-        <TableRow
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Κατηγορία:     "
-                android:id="@+id/tvCat"
-                android:textStyle="bold" />
+                android:id="@+id/eventTitleTv"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:textSize="20dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#31D100" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <ImageView
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/eventCatTv"
+                android:id="@+id/eventPic"
+                android:scaleType="fitXY"
+                android:maxHeight="200dp"
+                android:minHeight="200dp"
                 android:layout_marginBottom="10dp" />
 
-        </TableRow>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Κατηγορία:     "
+                        android:id="@+id/tvCat"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/eventCatTv"
+                        android:layout_marginBottom="10dp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Περιοχή: "
+                        android:id="@+id/tvAreaShow"
+                        android:textStyle="bold"
+
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/eventAreaTv"
+                        android:layout_marginBottom="10dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ημ/νία: "
+                        android:id="@+id/tvDateShow"
+                        android:textStyle="bold"
+
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/eventDateTv"
+                        android:layout_marginBottom="15dp" />
+                </TableRow>
+
+            </TableLayout>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Περιοχή: "
-                android:id="@+id/tvAreaShow"
-                android:textStyle="bold"
+                android:id="@+id/eventSdescTv" />
 
-                />
+        </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/eventAreaTv"
-                android:layout_marginBottom="10dp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ημ/νία: "
-                android:id="@+id/tvDateShow"
-                android:textStyle="bold"
-
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/eventDateTv"
-                android:layout_marginBottom="15dp" />
-        </TableRow>
-
-    </TableLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/eventSdescTv" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Δηλώστε συμμετοχή για:"
-        android:id="@+id/applyTv"
-        android:visibility="gone"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:layout_marginTop="5dp" />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/applySpin"
-        android:spinnerMode="dropdown"
-        android:visibility="gone"
-        android:layout_marginTop="5dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="δηλωση"
-        android:id="@+id/applyBtn"
-        android:visibility="gone"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="5dp"
-        android:background="#31D100" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Αιτούντες:"
-        android:id="@+id/applicantTv"
-        android:visibility="gone"
-        android:layout_marginTop="5dp"
-        android:textStyle="bold"
-        android:textSize="18dp"
-        android:layout_gravity="center_horizontal"
-        android:textColor="#31D100" />
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/applicantLv"
-        android:visibility="gone" />
+    </ScrollView>
 
 </LinearLayout>

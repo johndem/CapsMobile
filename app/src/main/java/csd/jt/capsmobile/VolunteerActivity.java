@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v4.view.PagerAdapter;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -25,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -308,16 +312,17 @@ public class VolunteerActivity extends BaseActivity {
             if (pDialog.isShowing())
                 pDialog.dismiss();
 
-            //ImageView img;
             TextView nameTv, emailTv, dobTv, pointsTv;
 
-           // img = (ImageView) v.findViewById(R.id.volProfileImg);
             nameTv = (TextView) v.findViewById(R.id.nameTv);
             emailTv = (TextView) v.findViewById(R.id.emailTv);
             dobTv = (TextView) v.findViewById(R.id.dobTv);
             pointsTv = (TextView) v.findViewById(R.id.pointsTv);
 
-           // img.setImageURI(Uri.parse("http://10.0.2.2/" + dataList.get(TAG_IMAGE)));
+            // show The Image
+            new DownloadImageTask((ImageView) v.findViewById(R.id.volProfileImg))
+                    .execute(uri + "/CAPS/el/" + dataList.get(TAG_IMAGE));
+
             String name = dataList.get(TAG_FIRSTNAME) + " " + dataList.get(TAG_LASTNAME);
             nameTv.setText(nameTv.getText() + name);
             String email = dataList.get(TAG_EMAIL);
@@ -329,6 +334,31 @@ public class VolunteerActivity extends BaseActivity {
 
         }
 
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 
     private class GetHistoryData extends AsyncTask<Void, Void, Void> {
