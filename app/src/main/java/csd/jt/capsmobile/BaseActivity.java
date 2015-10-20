@@ -110,7 +110,8 @@ public class BaseActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                     if (position == 4) {
-
+                        Intent intent = new Intent(BaseActivity.this, AboutActivity.class);
+                        startActivity(intent);
                     }
                 }
             });
@@ -148,7 +149,8 @@ public class BaseActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                     if (position == 4) {
-
+                        Intent intent = new Intent(BaseActivity.this, AboutActivity.class);
+                        startActivity(intent);
                     }
                 }
             });

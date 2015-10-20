@@ -6,8 +6,7 @@
     android:padding="10dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:layout_margin="3dp"
-    android:background="#efffeb">
+    android:layout_margin="3dp">
 
     <!-- Name Label -->
 
