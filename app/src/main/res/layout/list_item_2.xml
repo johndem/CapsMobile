@@ -8,107 +8,79 @@
     android:paddingRight="10dp"
     android:layout_margin="3dp">
 
-    <!-- Name Label -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="2dip"
-                android:paddingTop="6dip"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="#31D100"/>
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            >
+            android:paddingBottom="2dip"
+            android:paddingTop="6dip"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="#31D100"/>
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Κατηγορία: "
-                android:id="@+id/tvCat"
-                android:textStyle="bold"
-                android:textSize="10dp"
-
-                />
-
-            <TextView
-                android:id="@+id/category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="10dp"
-
-
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Τοποθεσία: "
-                android:id="@+id/tvAreaShow"
-                android:textStyle="bold"
-                android:textSize="10dp"
-
-                />
-
-            <TextView
-                android:id="@+id/at"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="10dp"
-
-
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ημ/νία: "
-                android:id="@+id/tvDateShow"
-                android:textStyle="bold"
-                android:textSize="10dp"
-
-                />
-
-            <TextView
-                android:id="@+id/when"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="10dp" />
-        </LinearLayout>
-
-    <TextView
-        android:id="@+id/click"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="2dip"
-        android:paddingTop="6dip"
-        android:textSize="10sp"
-        android:text="Click για περισσότερα >>"
-        android:textColor="#31D100"/>
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Κατηγορία: "
+            android:id="@+id/tvCat"
+            android:textStyle="bold"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Τοποθεσία: "
+            android:id="@+id/tvAreaShow"
+            android:textStyle="bold"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/at"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ημ/νία: "
+            android:id="@+id/tvDateShow"
+            android:textStyle="bold"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/when"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="13dp" />
+    </LinearLayout>
 
 </LinearLayout>

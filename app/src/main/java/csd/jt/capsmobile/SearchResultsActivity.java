@@ -6,12 +6,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -25,15 +24,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 
-public class SearchResultsActivity extends ListActivity {
+public class SearchResultsActivity extends AppCompatActivity {
 
+    Toolbar toolbar;
+    private CharSequence mTitle;
     private ListView lv;
-
-    // private ProgressDialog pDialog;
-    public ListActivity act = this;
+    public Activity act = this;
     public String cat = "";
     HashMap<String, String> params = new HashMap<>();
 
@@ -71,8 +69,14 @@ public class SearchResultsActivity extends ListActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_results);
+        setContentView(R.layout.activity_search_results);
+
         Log.d("tag1", "Oncreate");
+
+        setupToolbar();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        setTitle("Διαθέσιμες Δράσεις");
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -92,7 +96,8 @@ public class SearchResultsActivity extends ListActivity {
 
         dataList = new ArrayList<HashMap<String, String>>();
 
-        lv = getListView();
+        lv = (ListView)findViewById(R.id.resultsLv);
+        //lv = getListView();
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -112,6 +117,18 @@ public class SearchResultsActivity extends ListActivity {
         // Calling async task to get json
         new GetData().execute();
 
+    }
+
+    void setupToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        getSupportActionBar().setTitle(mTitle);
     }
 
     private Bundle getParams(String title) {
@@ -255,12 +272,8 @@ public class SearchResultsActivity extends ListActivity {
                 Toast.makeText(act, "Δε βρέθηκαν δράσεις", Toast.LENGTH_LONG).show();
             }
             else {
-                ListAdapter adapter = new SimpleAdapter(
-                        act, dataList,
-                        R.layout.list_item_2, new String[]{TAG_TITLE, TAG_CATEGORY, TAG_AREA, TAG_DAY}, new int[]{R.id.title, R.id.category, R.id.at, R.id.when});
-
-                setListAdapter(adapter);
-
+                ListAdapter adapter = new SimpleAdapter(act, dataList, R.layout.list_item_2, new String[]{TAG_TITLE, TAG_CATEGORY, TAG_AREA, TAG_DAY}, new int[]{R.id.title, R.id.category, R.id.at, R.id.when});
+                lv.setAdapter(adapter);
             }
         }
     }
@@ -273,6 +286,10 @@ public class SearchResultsActivity extends ListActivity {
 
             //noinspection SimplifiableIfStatement
             if (id == R.id.action_settings) {
+                return true;
+            }
+            else if (id == android.R.id.home) {
+                onBackPressed();
                 return true;
             }
 

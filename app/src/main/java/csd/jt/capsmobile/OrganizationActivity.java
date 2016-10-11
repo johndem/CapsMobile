@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class OrganizationActivity extends BaseActivity {
+public class OrganizationActivity extends AppCompatActivity {
 
     private SlidingTabLayout mSlidingTabLayout;
     private ViewPager mViewPager;

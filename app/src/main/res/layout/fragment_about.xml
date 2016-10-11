@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Η εφαρμογή eθελοντισμός βρίσκεται ακόμα σε beta έκδοση!"
+            android:id="@+id/appVersionTv"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Η εφαρμογή είναι σχεδιασμένη ώστε να προσφέρει τη δυνατότητα σε εθελοντές να αναζητήσουν εθελοντικές δράσεις και να δηλώσουν συμμετοχή καθώς και να επιτρέπει στους διοργανωτές οργανισμούς να παρακολουθούν την πορεία των δράσεών τους(αιτήσεις εθελοντών κτλ)."
+            android:id="@+id/appDescTv"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Αναπτύχθηκε στο πλαίσιο διπλωματικής εργασίας του Τμήματος Πληροφορικής, Αριστοτελείου Πανεπιστημίου Θεσσαλονίκης, και αποτελεί μία επέκταση της web εφαρμοργής που βρίσκεται στον σύνδεσμο: http://www.idematis.webpages.auth.gr/CAPS/el/index"
+            android:id="@+id/appOriginTv"
+            android:autoLink="web"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</RelativeLayout>

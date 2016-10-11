@@ -1,23 +1,20 @@
 package csd.jt.capsmobile;
 
-import android.app.Activity;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -26,26 +23,37 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class LoginActivity extends BaseActivity {
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class LoginFragment extends Fragment {
 
     private ProgressDialog pDialog;
     private EditText username, password;
     private Button logBtn;
     SharedPreferences sharedpreferences;
 
-    private String uri = "http://idematis.webpages.auth.gr"; //"http://10.0.2.2"
+    private String uri = "http://idematis.webpages.auth.gr";
+
+
+    public LoginFragment() {
+        // Required empty public constructor
+    }
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_login, container, false);
 
-        username = (EditText) findViewById(R.id.usernameEt);
-        password = (EditText) findViewById(R.id.passEt);
-        logBtn = (Button) findViewById(R.id.loginBtn);
 
-        sharedpreferences = getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+        username = (EditText) rootView.findViewById(R.id.usernameEt);
+        password = (EditText) rootView.findViewById(R.id.passEt);
+        logBtn = (Button) rootView.findViewById(R.id.loginBtn);
+
+        sharedpreferences = getActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
 
         logBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,14 +62,18 @@ public class LoginActivity extends BaseActivity {
                 String pass = password.getText().toString();
 
                 if (user.equals("") || pass.equals(""))
-                    Toast.makeText(LoginActivity.this, "Παρακαλούμε συμπληρώστε και τα δύο πεδία!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Παρακαλούμε συμπληρώστε και τα δύο πεδία!", Toast.LENGTH_SHORT).show();
                 else {
                     // Calling async task to get json
-                    new GetData().execute(user, pass);
+                    new LoginFragment.GetData().execute(user, pass);
                 }
             }
         });
+
+
+        return rootView;
     }
+
 
     /**
      * Async task class to get json by making HTTP call
@@ -72,7 +84,7 @@ public class LoginActivity extends BaseActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             // Showing progress dialog
-            pDialog = new ProgressDialog(LoginActivity.this);
+            pDialog = new ProgressDialog(getActivity());
             pDialog.setMessage("Παρακαλούμε περιμένετε...");
             pDialog.setCancelable(false);
             pDialog.show();
@@ -130,11 +142,12 @@ public class LoginActivity extends BaseActivity {
 //            super.onPostExecute(result);
 
             if (result.equals("Ok")) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+//                Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
+                getActivity().finish();
+                startActivity(getActivity().getIntent());
             }
             else
-                Toast.makeText(LoginActivity.this, result, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
 
             // Dismiss the progress dialog
             if (pDialog.isShowing())
@@ -144,25 +157,4 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

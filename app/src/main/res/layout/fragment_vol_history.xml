@@ -3,9 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <!-- Main ListView
-         Always give id value as list(@android:id/list)
-    -->
 
     <TextView
         android:layout_width="wrap_content"

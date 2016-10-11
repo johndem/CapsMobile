@@ -6,22 +6,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -37,15 +36,19 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static csd.jt.capsmobile.R.color.green;
+import static csd.jt.capsmobile.R.color.grey;
 
-public class EventActivity extends BaseActivity {
 
+public class EventActivity extends AppCompatActivity {
+
+    Toolbar toolbar;
     private SlidingTabLayout mSlidingTabLayout;
     private ViewPager mViewPager;
     Activity act = this;
     JSONArray active = null;
 
-    private String uri = "http://idematis.webpages.auth.gr"; //"http://10.0.2.2"
+    private String uri = "http://idematis.webpages.auth.gr";
 
     private ProgressDialog pDialog;
 
@@ -60,6 +63,10 @@ public class EventActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+
+        setupToolbar();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Παρακαλούμε περιμένετε...");
@@ -76,8 +83,27 @@ public class EventActivity extends BaseActivity {
         // it's PagerAdapter set.
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setViewPager(mViewPager);
+        //setting indicator and divider color
+        mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(green);    //define any color in xml resources and set it here, I have used white
+            }
+
+            @Override
+            public int getDividerColor(int position) {
+                return getResources().getColor(grey);
+            }
+        });
         // END_INCLUDE (setup_slidingtablayout)
 
+    }
+
+    void setupToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override
@@ -96,6 +122,10 @@ public class EventActivity extends BaseActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        else if (id == android.R.id.home) {
+            onBackPressed();
             return true;
         }
 
@@ -179,6 +209,11 @@ public class EventActivity extends BaseActivity {
                 TextView descTv = (TextView) view.findViewById(R.id.eventSdescTv);
                 descTv.setText(desc);
 
+                Log.d("CATEGORY: ", "> " + category);
+                Log.d("AREA: ", "> " + area);
+                Log.d("DATE: ", "> " + date);
+                Log.d("DESC: ", "> " + desc);
+
             }
             else if (position == 1) {
                 view = act.getLayoutInflater().inflate(R.layout.fragment_event_details,
@@ -228,6 +263,9 @@ public class EventActivity extends BaseActivity {
             else {
                 view  = act.getLayoutInflater().inflate(R.layout.fragment_event_apply,
                         container, false);
+
+                Spinner applySpin = (Spinner) view.findViewById(R.id.applySpin);
+                applySpin.getBackground().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
 
                 Bundle extras = act.getIntent().getExtras();
                 String event_id = null, poster_id = null;

@@ -11,6 +11,8 @@ import android.os.AsyncTask;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,14 +34,19 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static csd.jt.capsmobile.R.color.black;
+import static csd.jt.capsmobile.R.color.green;
+import static csd.jt.capsmobile.R.color.grey;
 
-public class VolunteerActivity extends BaseActivity {
 
+public class VolunteerActivity extends AppCompatActivity {
+
+    Toolbar toolbar;
     private SlidingTabLayout mSlidingTabLayout;
     private ViewPager mViewPager;
     Activity act = this;
 
-    private String uri = "http://idematis.webpages.auth.gr"; //"http://10.0.2.2"
+    private String uri = "http://idematis.webpages.auth.gr";
 
     private ProgressDialog pDialog;
 
@@ -48,6 +55,9 @@ public class VolunteerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_volunteer);
 
+        setupToolbar();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Παρακαλούμε περιμένετε...");
@@ -63,7 +73,26 @@ public class VolunteerActivity extends BaseActivity {
         // it's PagerAdapter set.
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setViewPager(mViewPager);
+        //setting indicator and divider color
+        mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(green);    //define any color in xml resources and set it here, I have used white
+            }
+
+            @Override
+            public int getDividerColor(int position) {
+                return getResources().getColor(grey);
+            }
+        });
         // END_INCLUDE (setup_slidingtablayout)
+    }
+
+    void setupToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override
@@ -82,6 +111,10 @@ public class VolunteerActivity extends BaseActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        else if (id == android.R.id.home) {
+            onBackPressed();
             return true;
         }
 
